@@ -43,7 +43,7 @@
 
         <table tableName="fundmanager"></table>
         <table tableName="fxrate"></table>
-        <table tableName = "portflio"></table>
+        <table tableName ="portfolio"></table>
         <table tableName="position"></table>
     </context>
 </generatorConfiguration>
