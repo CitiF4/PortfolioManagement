@@ -11,4 +11,6 @@
     <bean id = "adminServiceImpl" class="Service.AdminServiceImpl"></bean>
 
     <bean id = "fundmanagerServiceImpl" class="Service.FundManagerServiceImpl"></bean>
+
+    <bean id = "InformationServiceImpl" class="Service.InformationServiceImpl"></bean>
 </beans>
