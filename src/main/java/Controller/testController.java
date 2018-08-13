@@ -28,11 +28,12 @@ public class testController {
         Fundmanager f = adminServiceImpl.getFundManager(9999);
         System.out.println("==========================================");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test");
+
         // 添加数据
         modelAndView.addObject("id",f.getId());
         modelAndView.addObject("name",f.getName());
         System.out.println(f.toString());
+        modelAndView.setViewName("test");
         return modelAndView;
     }
 }

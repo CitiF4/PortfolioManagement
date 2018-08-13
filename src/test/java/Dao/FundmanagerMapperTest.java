@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:springmvc-servlet.xml","classpath:spring-mybatis.xml"})
+@ContextConfiguration(locations={"classpath:springmvc-servlet.xml","classpath:spring-mybatis.xml","classpath:applicationContext.xml"})
 public class FundmanagerMapperTest {
 
 //    @Autowired

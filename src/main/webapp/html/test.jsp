@@ -3,12 +3,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"  isELIgnored="false" %>
 <html>
 <head>
-    <title>test.jsp</title>
+    <title>test</title>
 </head>
 <body>
-<h3>id:<c:out value="${id}"/> </h3>
+<h3>id:<c:out value="${requestScope.id}"></c:out> </h3>
 <br>
-<h3>name:${requestScope.name}</h3>
+<h3>name:${name}</h3>
 <br>
+hello
 </body>
 </html>

@@ -16,7 +16,7 @@
     </set>
     where id=#{id}
   </update>
-  <select id="getFxRate" resultType="Model.Fxrate">
+  <select id="getFxRates" resultType="Model.Fxrate">
     SELECT * FROM fxrate
   </select>
 
