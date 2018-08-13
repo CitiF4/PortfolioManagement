@@ -18,7 +18,7 @@ public class InformationServiceImpl implements InformationService {
 
    /* public List<Information> queryForInformation(String type, String date){
         return informationMapper.queryForInformation(type,date);
-    };*/
+    };。。。*/
 
     public List<Information> queryForInformation(String type){
         return informationMapper.queryForInformation(type);
