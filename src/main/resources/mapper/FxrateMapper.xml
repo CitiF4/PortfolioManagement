@@ -6,6 +6,7 @@
     <result column="base" jdbcType="VARCHAR" property="base" />
     <result column="term" jdbcType="VARCHAR" property="term" />
     <result column="rate" jdbcType="DECIMAL" property="rate" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
   </resultMap>
   <update id="updateFxRate" parameterType="Model.Fxrate">
     update fxrate
@@ -13,6 +14,7 @@
       <if test="base != null">base=#{base},</if>
       <if test="term != null">term=#{term},</if>
       <if test="rate != null">rate=#{rate},</if>
+      <if test="date != null">date=#{date}</if>
     </set>
     where id=#{id}
   </update>
