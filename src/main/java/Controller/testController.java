@@ -3,6 +3,7 @@ package Controller;
 import Model.Fundmanager;
 import Model.Information;
 import Model.Portfolio;
+import Model.Position;
 import Service.AdminService;
 import Service.AdminServiceImpl;
 import Service.FundManagerService;
@@ -43,19 +44,11 @@ public class testController {
     @RequestMapping(value = "/test")
     public ModelAndView test(){
 
-        Information info = new Information();
-        info.setCcy("CNY");
-        info.setDate("2018-08-13 20:00:22.721");
-        info.setPrice(100.00);
-        info.setType("futures");
-        info.setSymbol("F4");
 
-        informationServiceImpl.createInformation(info);
-
-        List<Information> result = informationServiceImpl.queryForInformation("CNY");
-        for (Information i :result
+        List<Position> lll = adminServiceImpl.queryForDistinctPositions();
+        for (Position p:lll
              ) {
-            System.out.println(i.getDate());
+            System.out.println(p.getSymbol()+"  "+p.getType());
         }
 
 
@@ -85,4 +78,13 @@ public class testController {
         return null;
 
     }
+
+    @RequestMapping("/deleteInformation/{infoId}")
+    @ResponseBody
+    public String deleteInformation(@PathVariable int infoId){
+        informationServiceImpl.deleteInformation(infoId);
+        return null;
+    }
+
+
 }

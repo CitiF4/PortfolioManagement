@@ -114,6 +114,33 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+  <delete id="deleteInformation" parameterType="int">
+    DELETE from information where id = #{infoId}
+  </delete>
+
+  <update id="updateInformation" parameterType="Model.Information">
+    update information
+    <set>
+      <if test="symbol != null">
+        symbol = #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ccy != null">
+        type = #{ccy,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
   <insert id="insert" parameterType="Model.Information">
     <!--
       WARNING - @mbggenerated

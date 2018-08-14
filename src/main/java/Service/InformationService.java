@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface InformationService {
     void createInformation(Information info);
-    /*void deleteInformation(int infoId);
-    void updateInformation(Information info);*/
+    /*
+    */
 //    List<Information> queryForInformation(String type, String date);
     List<Information> queryForInformation(String type);
+    void updateInformation(Information info);
+    void deleteInformation(int infoId);
 }

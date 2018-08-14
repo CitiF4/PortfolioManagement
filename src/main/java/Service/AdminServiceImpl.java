@@ -25,6 +25,10 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PositionMapper positionMapper;
 
+    public List<Position> queryForDistinctPositions(){
+        return  positionMapper.queryForDistinctPositions();
+    }
+
     public void createFm(Fundmanager f) {
         fundManagerMapper.createFundmanager(f);
     }

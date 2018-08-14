@@ -11,6 +11,9 @@ public interface InformationMapper {
 
    // List<Information> queryForInformation(String type, String date);
 
+    int deleteInformation(int infoId);
+    int updateInformation(Information info);
+
     List<Information> queryForInformation(String type);
 
     int createInfomation(Information info);

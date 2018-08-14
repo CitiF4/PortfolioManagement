@@ -10,7 +10,7 @@
     <result column="qty" jdbcType="INTEGER" property="qty" />
     <result column="symbol" jdbcType="VARCHAR" property="symbol" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="country" jdbcType="VARCHAR" property="ccy" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="portfolioID" jdbcType="INTEGER" property="portfolioid" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
@@ -106,6 +106,15 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="queryForPositions" resultType="Model.Position">
+    SELECT * FROM position where portfolioID =#{pId}
+  </select>
+
+  <select id="queryForDistinctPositions" resultType="Model.Position">
+    SELECT DISTINCT symbol,type FROM  information
+  </select>
+
   <select id="getPortfolios" resultType="Model.Portfolio">
     SELECT * FROM  position
   </select>

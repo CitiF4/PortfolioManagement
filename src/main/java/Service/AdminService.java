@@ -13,6 +13,10 @@ import java.util.List;
  */
 
 public interface AdminService {
+
+    //admin view the distinct list of positions
+    List<Position> queryForDistinctPositions();
+
     void createFm(Fundmanager f);
     void updateRate(Fxrate f);
     void updatePrice(Position p);

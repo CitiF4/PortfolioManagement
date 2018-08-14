@@ -3,9 +3,11 @@ package Service;
 import Dao.PortfolioMapper;
 import Dao.PositionMapper;
 import Model.Portfolio;
+import Model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +22,14 @@ public class FundManagerServiceImpl implements FundManagerService {
 
     @Autowired
     private PortfolioMapper portfolioMapper;
+
+    public void updatePortfolioById(int id,String name){
+        portfolioMapper.updatePortfolioById(id,name);
+    }
+    public void createPortfolioByName(String name, double cash, int fmId, Date date){portfolioMapper.createPortfolioByName(name,cash,fmId,new Date());}
+
+    public List<Position> queryForPositions(int pId){return positionMapper.queryForPositions(pId);}
+
     public void createPortfolio(Portfolio p) {
         portfolioMapper.createPortfolio(p);
     }
