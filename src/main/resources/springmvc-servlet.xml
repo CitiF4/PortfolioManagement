@@ -9,8 +9,8 @@
     <context:component-scan base-package="Controller"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/html/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="prefix" value="/WEB-INF/PortfolioViews"/>
+        <property name="suffix" value=".html"/>
     </bean>
     <!-- don't handle the static resource -->
     <!--<mvc:default-servlet-handler />-->

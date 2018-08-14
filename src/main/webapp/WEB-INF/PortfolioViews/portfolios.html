@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Dashboard</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <!-- MENU SIDEBAR-->
+    <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <a href="#">
+                <img src="images/icon/logo.png" alt="FundManager" />
+            </a>
+        </div>
+        <div class="menu-sidebar__content js-scrollbar1">
+            <nav class="navbar-sidebar">
+                <ul class="list-unstyled navbar__list">
+                    <li class="active has-sub">
+                        <a  id= "createPortfolio" class="js-arrow" href="#">
+                            <i class="fas fa-tachometer-alt"></i>Create</a>
+                    </li>
+                    <li>
+                        <a href="chart.html">
+                            <i class="fas fa-chart-bar"></i>Portfolios</a>
+                    </li>
+                    <li>
+                        <a href="table.html">
+                            <i class="fas fa-table"></i>Information</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+        <!-- HEADER DESKTOP-->
+        <header class="header-desktop">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="header-wrap" style="display:block">
+                        <div class="header-button" style="float:right">
+                            <div class="account-wrap" style="float:right">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="image">
+                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#">john doe</a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#">john doe</a>
+                                                </h5>
+                                                <span class="email">johndoe@example.com</span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- HEADER DESKTOP-->
+
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class = "row">
+                        <div class="col-xl-12">
+                            <!-- PAGE CONTENT-->
+                            <div class="page-content">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>Trade</strong>
+                                            </div>
+                                            <div class="card-body card-block">
+                                                <div class="row form-group">
+                                                    <div class="col col-md-3">
+                                                        <label for="selectLg" class=" form-control-label">Type</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <select name="selectLg" id="selectLg" class="form-control-lg form-control"
+                                                                onchange="selectOnchang(this)">
+                                                            <option value="0">Bonds</option>
+                                                            <option value="1">Equity</option>
+                                                            <option value="2">Futures</option>
+                                                            <option value="3">ETFS</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col col-md-3">
+                                                        <label for="select" class=" form-control-label">Company</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <select name="select" id="select" class="form-control"
+                                                                onchange="selectOnchang(this)">
+                                                            <option value="0">Google</option>
+                                                            <option value="1">Apple</option>
+                                                            <option value="2">Baidu</option>
+                                                            <option value="3">Alibaba</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col col-md-3">
+                                                        <label for="text-input" class=" form-control-label">Quitity</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
+                                                        <small class="form-text text-muted">input the quitity</small>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-info">Buy</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-info">Sell</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <!-- CHART PERCENT-->
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>Line Chart</strong>
+                                            </div>
+                                            <div class="card-body card-block">
+                                                <canvas id="myChart"></canvas>
+                                            </div>
+                                        </div>
+                                        <!-- END CHART PERCENT-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Portfolio
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Type</th>
+                                                        <th>Symbol</th>
+                                                        <th>Qty</th>
+                                                        <th>Price</th>
+                                                        <th>Rate</th>
+                                                        <th>Value(USD)</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Bonds</td>
+                                                        <td>Apple</td>
+                                                        <td >20</td>
+                                                        <td>999.00</td>
+                                                        <td>1.66</td>
+                                                        <td>5000</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PAGE CONTENT-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT-->
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">New Portfolio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="txt_departmentname">Portfolio Name</label>
+                        <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_parentdepartment">Cash</label>
+                        <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="cash value">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Jquery JS-->
+<script src="vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="vendor/slick/slick.min.js">
+</script>
+<script src="vendor/wow/wow.min.js"></script>
+<script src="vendor/animsition/animsition.min.js"></script>
+<script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="vendor/circle-progress/circle-progress.min.js"></script>
+<script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="vendor/select2/select2.min.js">
+</script>
+
+<!-- Main JS-->
+<script src="js/main.js"></script>
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line', // line 表示是 曲线图，当然也可以设置其他的图表类型 如柱形图 : bar  或者其他
+        data: {
+            labels : ["January","February","March","April","May","June","July"], //按时间段 可以按星期，按月，按年
+            datasets : [
+                {
+                    label: "123",  //当前数据的说明
+                    fill: true,  //是否要显示数据部分阴影面积块  false:不显示
+                    borderColor: "rgba(200,187,205,1)",//数据曲线颜色
+                    pointBackgroundColor: "#fff", //数据点的颜色
+                    data: [80, 90, 100, 30, 67, 59, 88],  //填充的数据
+                },
+                {
+                    label: "456",  //当前数据的说明
+                    fill: true,  //是否要显示数据部分阴影面积块  false:不显示
+                    borderColor: "rgba(75,192,192,1)",//数据曲线颜色
+                    pointBackgroundColor: "#fff", //数据点的颜色
+                    data: [21, 34, 35, 50, 45, 21, 70],  //填充的数据
+                }
+            ]
+        }
+    });
+
+    $('#createPortfolio').click(function(){
+        $('#myModal').css('display', 'block');
+        var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
+        $('#myModal').find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+        $('#myModal').modal();
+    })
+
+    $('#myModal').on('shown.bs.modal', function (e) {
+        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+        $(this).css('display', 'block');
+        var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
+        $(this).find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+    });
+    function selectOnchang(e){
+        e.options[ e.selectedIndex].grade;
+    }
+
+
+
+</script>
+</body>
+
+</html>
+<!-- end document-->
