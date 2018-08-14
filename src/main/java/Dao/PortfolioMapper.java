@@ -20,4 +20,5 @@ public interface PortfolioMapper {
     int updatePortfolio(Portfolio p);
     List<Portfolio>  getPortfolios();
     Portfolio getPorfolio(int portfolioId);
+    Portfolio addPositionByPortId(int portfolioId);
 }

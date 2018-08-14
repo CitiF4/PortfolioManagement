@@ -13,7 +13,7 @@
     <result column="country" jdbcType="VARCHAR" property="ccy" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="portfolioID" jdbcType="INTEGER" property="portfolioid" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="date" jdbcType="DATE" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--

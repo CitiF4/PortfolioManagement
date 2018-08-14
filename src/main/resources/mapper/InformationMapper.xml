@@ -11,7 +11,7 @@
     <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="ccy" jdbcType="VARCHAR" property="ccy" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="date" jdbcType="DATE" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -152,7 +152,7 @@
       #{type,jdbcType=VARCHAR}, #{ccy,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP})
   </insert>
 
-  <insert id="createInfomation" parameterType="Model.Information">
+  <insert id="createInformation" parameterType="Model.Information">
     insert into information (symbol,price,type,ccy,date)
     values (#{symbol,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},#{type,jdbcType=VARCHAR},#{ccy,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR})
   </insert>
@@ -219,6 +219,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+  <select id="getInformationPeriod" resultType="Model.Information">
+    SELECT * FROM information where type = #{type}
+    <if test="dateFrom != null and dateFrom != ''"> AND date <![CDATA[>=]]> #{dateFrom}</if>
+    <if test="dateTo != null and dateTo != ''">AND date <![CDATA[<=]]> #{dateTo}</if>
+  </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     <!--
       WARNING - @mbggenerated
@@ -265,4 +272,9 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <select id="getInformationOfSameType" resultType="Model.Information">
+    SELECT * from information where type = #{type}
+  </select>
+
 </mapper>

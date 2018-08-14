@@ -13,7 +13,7 @@ public class InformationServiceImpl implements InformationService {
     private InformationMapper informationMapper;
 
     public void createInformation(Information info){
-        informationMapper.createInfomation(info);
+        informationMapper.createInformation(info);
     }
 
    /* public List<Information> queryForInformation(String type, String date){

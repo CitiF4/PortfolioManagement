@@ -10,5 +10,7 @@ public interface FundmanagerMapper {
     int deleteFundmanager(int FmId);
     List<Fundmanager> getFundManagers();
     Fundmanager getFundManager(int FmId);
+    Fundmanager getFundManagerByName(String name);
     int updateFundmanager(Fundmanager f);
+    Fundmanager addPorfolioByfmId(int fmid);//set fundmanager.setPorfolioList()
 }

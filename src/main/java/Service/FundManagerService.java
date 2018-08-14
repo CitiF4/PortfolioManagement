@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Information;
 import Model.Portfolio;
 import Model.Position;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 public interface FundManagerService {
+    boolean validateFm(String name);
     void createPortfolio(Portfolio p);
 
 
@@ -24,6 +26,9 @@ public interface FundManagerService {
     void updatePortfolioById(int id,String name);
     List<Portfolio> getPortfolios();
     Portfolio getPortfolio(int portfolioId);
+    List<Information> getInformations();
+    List<Information> getInformation(String type, String date);
+    void getPortShowInfo(List<Portfolio> portfolios);
     List<Portfolio> sortPortfolio();//find best portfolio
 //    sort,filter,top,tail datasets
 //    top,worst performing funds

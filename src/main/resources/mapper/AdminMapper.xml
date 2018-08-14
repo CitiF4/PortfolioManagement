@@ -14,6 +14,10 @@
     SELECT * FROM admin where id = #{id}
   </select>
 
+  <select id="getAdminByName" resultType="Model.Admin">
+    SELECT * FROM admin where name = #{name}
+  </select>
+
   <update id="updateAdmin">
     update admin
     <set>
