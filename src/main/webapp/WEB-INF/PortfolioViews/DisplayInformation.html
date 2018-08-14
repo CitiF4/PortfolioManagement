@@ -60,7 +60,7 @@
                             <i class="fas fa-chart-bar"></i>Portfolios</a>
                     </li>
                     <li>
-                        <a href="table.html">
+                        <a href="DisplayInformation.html">
                             <i class="fas fa-table"></i>Information</a>
                     </li>
                 </ul>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="row marginTop">
-                <table id="example" class="table">
+                <table id="showTypeInfo" class="table">
                     <thead>
                     <tr>
                         <th>Symbol</th>
@@ -179,43 +179,6 @@
                         <th>Date</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    </tbody>
                 </table>
                 <table id="grid-data" class="table table-condensed table-hover table-striped">
                     <thead>
@@ -288,14 +251,6 @@
 <!-- Main JS-->
 <script src="js/main.js"></script>
 <script>
-    var dataSet =[
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"]
-    ]
     $(document).ready(function(){
         showTableData("Bonds");
 
@@ -315,24 +270,22 @@
     function handleDisplayInformation(e) {
         console.log("i am clicked");
         var productType = e.getAttribute("id");
-        showTableData(productType)
-
-
-    }
-    function showTableData(type){
-        var grid = $("#grid-data").bootgrid({
-            ajax:true,
-            post: function ()
-            {
-                return {
-                    productType: type,
-                    date:new Date()
-                };
+        if( $('#showTypeInfo').dataTable()){
+            $('#showTypeInfo').dataTable().fnDestroy();
+        }
+        $('#showTypeInfo').DataTable( {
+            ajax: {
+                url: '/api/myData',
+                dataSrc: 'staff'
             },
-            url:"#",
-            // <%=basePath %>order/orderList
-
-        })
+            columns: [
+                { data: 'symbol' },
+                { data: 'price' },
+                { data: 'currency' },
+                { data: 'rate' },
+                { data: 'date' }
+            ]
+    } );
     }
 </script>
 <script>

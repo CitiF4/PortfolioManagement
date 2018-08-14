@@ -56,7 +56,7 @@
                             <i class="fas fa-chart-bar"></i>Portfolios</a>
                     </li>
                     <li>
-                        <a href="table.html">
+                        <a href="DisplayInformation.html">
                             <i class="fas fa-table"></i>Information</a>
                     </li>
                 </ul>
@@ -140,47 +140,53 @@
                                             <div class="card-body card-block">
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="selectLg" class=" form-control-label">Type</label>
+                                                        <label for="selectType" class=" form-control-label">Type</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <select name="selectLg" id="selectLg" class="form-control-lg form-control"
-                                                                onchange="selectOnchang(this)">
-                                                            <option value="0">Bonds</option>
-                                                            <option value="1">Equity</option>
-                                                            <option value="2">Futures</option>
-                                                            <option value="3">ETFS</option>
+                                                        <select name="selectLg" id="selectType" class="form-control-lg form-control"
+                                                                onchange="selectTypeOnchang(this)">
+                                                            <option value="bonds">Bonds</option>
+                                                            <option value="equity">Equity</option>
+                                                            <option value="futures">Futures</option>
+                                                            <option value="etfs">ETFS</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="select" class=" form-control-label">Company</label>
+                                                        <label for="selectSymbol" class=" form-control-label">Company</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <select name="select" id="select" class="form-control"
-                                                                onchange="selectOnchang(this)">
-                                                            <option value="0">Google</option>
-                                                            <option value="1">Apple</option>
-                                                            <option value="2">Baidu</option>
-                                                            <option value="3">Alibaba</option>
+                                                        <select id="selectSymbol" class="selectpicker form-control"  data-live-search="true"
+                                                        onchange="selectSymbolOnchang(this)">
                                                         </select>
                                                     </div>
+                                                    <!--<div class="col-12 col-md-6">-->
+                                                        <!--<select name="select" id="selectSymbol2" class="form-control"-->
+                                                                <!--onchange="selectOnchang(this)">-->
+                                                            <!--<option value="0">Google</option>-->
+                                                            <!--<option value="1">Apple</option>-->
+                                                            <!--<option value="2">Baidu</option>-->
+                                                            <!--<option value="3">Alibaba</option>-->
+                                                        <!--</select>-->
+                                                    <!--</div>-->
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="text-input" class=" form-control-label">Quitity</label>
+                                                        <label for="quantity-input" class=" form-control-label">Quitity</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
-                                                        <small class="form-text text-muted">input the quitity</small>
+                                                        <input type="number" id="quantity-input" name="text-input"
+                                                               placeholder="quantity" class="form-control" required>
+                                                        <!--<small class="form-text text-muted"></small>-->
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <button type="button" class="btn btn-info">Buy</button>
+                                                    <div class="col marginLeft">
+                                                        <button type="button" class="btn btn-primary" id="buyPosition">Buy</button>
                                                     </div>
-                                                    <div class="col">
-                                                        <button type="button" class="btn btn-info">Sell</button>
+                                                    <div class="col marginRight">
+                                                        <button type="button" class="btn btn-primary" id="sellPosition">Sell</button>
                                                     </div>
                                                 </div>
 
@@ -191,7 +197,7 @@
                                         <!-- CHART PERCENT-->
                                         <div class="card">
                                             <div class="card-header">
-                                                <strong>Line Chart</strong>
+                                                <strong id = "chartDate">line chart</strong>
                                             </div>
                                             <div class="card-body card-block">
                                                 <canvas id="myChart"></canvas>
@@ -207,7 +213,7 @@
                                                 Portfolio
                                             </div>
                                             <div class="card-body">
-                                                <table class="table">
+                                                <table id ="showPositions" class="table">
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -219,80 +225,6 @@
                                                         <th>Value(USD)</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -367,6 +299,77 @@
 <!-- Main JS-->
 <script src="js/main.js"></script>
 <script>
+    $(document).ready(function() {
+        console.log($('#chartDate'));
+        var date = new Date();
+        month = date.getMonth() + 1;
+        var dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
+        $('#chartDate')[0].innerText = dateStr;
+        showPositions;
+        });
+    function showPositions(){
+        var jsonStr = "{listdata}";
+        var jsonObject = Json.parse(jsonStr);
+        $('#showPositions').DataTable( {
+            data: jsonObject,
+            columns: [
+                { data: 'date' },
+                { data: 'type' },
+                { data: 'symbol' },
+                { data: 'qty' },
+                { data: 'price' },
+                { data: 'rate' },
+                { data: 'value' }
+            ]
+        } );
+
+    }
+
+    $('#createPortfolio').click(function(){
+        $('#myModal').css('display', 'block');
+        var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
+        $('#myModal').find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+        $('#myModal').modal();
+    });
+
+    $('#myModal').on('shown.bs.modal', function (e) {
+        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+        $(this).css('display', 'block');
+        var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
+        $(this).find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+    });
+    function selectTypeOnchange(e){
+        var type = $('#selectType').find("option:selected").attr("value");
+       console.log($('#selectType').find("option:selected").attr("value"));
+//       $.ajax({
+//           url:"/getSymbols",
+//           dataType:"json",
+//           data:{type:type},
+//           success:function(response){
+//               var optArr = [];
+//               for(var i =0; i < response.length;i++){
+//                   $('#selectSymbol').append("<option value =" + response[i].symbol + ">" +  response[i].symbol + "</option>");
+//               }
+//           }
+//       })
+    }
+    function selectSymbolOnchang(e){
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+//        根据symbol去请求近期的数据
+        $.ajax({
+           url:"/getSymbolInformation",
+           dataType:"json",
+           data:{symbol:symbol},
+           success:function(response){
+//               根据返回的数据构建chart!
+
+           }
+       })
+    }
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line', // line 表示是 曲线图，当然也可以设置其他的图表类型 如柱形图 : bar  或者其他
@@ -390,28 +393,34 @@
             ]
         }
     });
-
-    $('#createPortfolio').click(function(){
-        $('#myModal').css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
-        $('#myModal').find('.modal-dialog').css({
-            'margin-top': modalHeight
+    $("#buyPosition").click(function(){
+        var qty = $("#quantity-input").innerText;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        $.ajax({
+            url:"",
+            dataType:'json',
+            data:{qty:qty,type:type,symbol:symbol,action:buy},
+            success:function(response){
+                //这里得到新的table数据
+            }
         });
-        $('#myModal').modal();
+
     })
-
-    $('#myModal').on('shown.bs.modal', function (e) {
-        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-        $(this).css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
-        $(this).find('.modal-dialog').css({
-            'margin-top': modalHeight
+    $("#sellPosition").click(function(){
+        var qty = $("#quantity-input").innerText;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        $.ajax({
+            url:"",
+            dataType:'json',
+            data:{qty:qty,type:type,symbol:symbol,action:sell},
+            success:function(response){
+                //这里得到新的table数据
+            }
         });
-    });
-    function selectOnchang(e){
-        e.options[ e.selectedIndex].grade;
-    }
 
+    })
 
 
 </script>
