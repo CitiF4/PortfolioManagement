@@ -29,18 +29,19 @@ public class LoginController {
     FundManagerService fundManagerServiceImpl;
 
     @RequestMapping(value = "/login")
-    public ModelAndView loginProcess(@RequestParam(value = "name", required = false) String name) {
-        System.out.println("i am login");
-        ModelAndView mdv = null;
+    public ModelAndView loginProcess(@RequestParam(value = "name", required = false) String name,@RequestParam(value = "type") String type) {
+        System.out.println("i am login" + name + ";" + type);
+        ModelAndView mdv = new ModelAndView();
         if(name == null){
             mdv.setViewName("login");
         }else{
-            if(adminServiceImpl.validateAdmin(name)){
+            if(type.equals("admin") && adminServiceImpl.validateAdmin(name)){
+                System.out.println("this is a admin!!");
                 mdv.setViewName("admin");
                 List<Fundmanager> fundmanagers = adminServiceImpl.getFundManagers();
                 adminServiceImpl.getFmShowInfo(fundmanagers);
                 mdv.addObject("list",fundmanagers);
-            }else if(fundManagerServiceImpl.validateFm(name)){
+            }else if(type.equals("fundManager") && fundManagerServiceImpl.validateFm(name)){
                 mdv.setViewName("fundmanager");
                 List<Portfolio> portfolios = fundManagerServiceImpl.getPortfolios();
                 fundManagerServiceImpl.getPortShowInfo(portfolios);
