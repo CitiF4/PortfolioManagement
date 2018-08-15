@@ -42,6 +42,62 @@ public class testController {
     FundManagerService fundmanagerServiceImpl;
 
 
+    @RequestMapping(value = "/test")
+
+//    public ModelAndView test(){
+//
+//
+//        List<Position> lll = adminServiceImpl.queryForDistinctPositions();
+//        for (Position p:lll
+//             ) {
+//            System.out.println(p.getSymbol()+"  "+p.getType());
+//        }
+//
+//
+//        Fundmanager f = adminServiceImpl.getFundManager(9999);
+//        System.out.println("==========================================");
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        // 添加数据
+//        modelAndView.addObject("id",f.getId());
+//        modelAndView.addObject("name",f.getName());
+//        System.out.println(f.toString());
+//        modelAndView.setViewName("test");
+//        return modelAndView;
+//    }
+
+    public String test() {
+
+
+        System.out.println("login1111111111111");
+        return "login";
+    }
+    /*public ModelAndView test(){
+
+
+        //adminServiceImpl.createInformationForPrice("bbbb","cccc",50.09,"USD",new Date());
+        List<Information> lll = adminServiceImpl.getRecentPrice("FTSE","equities");
+        for (Information i :lll
+             ) {
+            System.out.println(i.getSymbol()+"   ==="+i.getPrice()+"   "+i.getDate());
+        }
+
+
+
+        Fundmanager f = adminServiceImpl.getFundManager(9999);
+        System.out.println("==========================================");
+        ModelAndView modelAndView = new ModelAndView();
+
+        // 添加数据
+        modelAndView.addObject("id",f.getId());
+        modelAndView.addObject("name",f.getName());
+        System.out.println(f.toString());
+        modelAndView.setViewName("test");
+        return modelAndView;
+>>>>>>> Stashed changes
+
+    }
+*/
     @RequestMapping("/getPortfolio/{id}")
     @ResponseBody
     public Portfolio getPortfolio (@PathVariable int id){

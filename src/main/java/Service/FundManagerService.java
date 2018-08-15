@@ -3,6 +3,7 @@ package Service;
 import Model.Information;
 import Model.Portfolio;
 import Model.Position;
+import javafx.geometry.Pos;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,7 +18,13 @@ public interface FundManagerService {
     boolean validateFm(String name);
     void createPortfolio(Portfolio p);
 
+    void updatePosition(Position p);
 
+    List<Position> getSamePositionsFromPortfolio(String symbol,String type,int portfolioID);
+
+    List<Portfolio> getPortFolioByFundManagerID(int fmID);
+    void createPositionWithoutID(Position p);
+    void createPosition(Position p);
     void createPortfolioByName(String name, double cash, int fmId, Date date);
     List<Position>queryForPositions(int pId);
     void deletePortfolio(int portfolioId);

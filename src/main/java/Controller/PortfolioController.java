@@ -126,7 +126,6 @@ public class PortfolioController {
 
     @RequestMapping(value = "queryForPortfolioPosition")
     @ResponseBody
-    @RequestMapping(value = "queryForPortfolio4zuPosition")
     public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
         int i = Integer.parseInt(request.getParameter("portfolioID"));
         DecimalFormat df = new DecimalFormat("0.00%");
@@ -181,12 +180,12 @@ public class PortfolioController {
                 for (Position ps : pslist) {
                     if(sellQty>ps.getQty()){
                         sellQty = sellQty-ps.getQty();
-                        pf.setCash(ps.getQty()*infos.get(0).getPrice()+pf.getCash());
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         fundmanagerServiceImpl.deletePosition(ps.getId());
                     }else if(sellQty==ps.getQty()){
                         sellQty = sellQty-ps.getQty();
-                        pf.setCash(ps.getQty()*infos.get(0).getPrice()+pf.getCash());
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         fundmanagerServiceImpl.deletePosition(ps.getId());
                         break;
@@ -198,7 +197,7 @@ public class PortfolioController {
 
                         fundmanagerServiceImpl.updatePosition(ps);
 
-                        pf.setCash(sellQty*infos.get(0).getPrice()+pf.getCash());
+                        pf.setCurCash(sellQty*infos.get(0).getPrice()+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         sellQty=0;
                         break;
@@ -231,7 +230,7 @@ public class PortfolioController {
         String type = request.getParameter("type");
         int pID = Integer.parseInt(request.getParameter("portfolioID"));
 
-        double cash = fundmanagerServiceImpl.getPortfolio(pID).getCash();
+        double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
         List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
         double price = infos.get(0).getPrice();
         String ccy = infos.get(0).getCcy();
@@ -242,7 +241,7 @@ public class PortfolioController {
             return "no";
         }else {
             Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
-            pf.setCash(cash-neededCash);
+            pf.setCurCash(cash-neededCash);
             Position ps = new Position();
             ps.setQty(qty);
             ps.setSymbol(symbol);

@@ -35,13 +35,21 @@ public class FundManagerServiceImpl implements FundManagerService {
 
     @Autowired
     private InformationMapper informationMapper;
+
+
+    public List<Portfolio> getPortFolioByFundManagerID(int fmID){return portfolioMapper.getPortFolioByFundManagerID(fmID);}
+
+    public void updatePosition(Position p){positionMapper.updatePosition(p);}
+    public List<Position> getSamePositionsFromPortfolio(String symbol,String type,int portfolioID){return positionMapper.getSamePositionsFromPortfolio(symbol,type,portfolioID);}
+
     public void updatePortfolioById(int id,String name){
         portfolioMapper.updatePortfolioById(id,name);
     }
-
+    public void createPositionWithoutID(Position p){ positionMapper.createPositionWithoutID(p);}
     public void createPortfolioByName(String name, double cash, int fmId, Date date){portfolioMapper.createPortfolioByName(name,cash,fmId,new Date());}
     public List<Position> queryForPositions(int pId){return positionMapper.queryForPositions(pId);}
 
+    public void createPosition(Position p){positionMapper.createPosition(p);}
 
     public boolean validateFm(String name) {
         Fundmanager f = fundmanagerMapper.getFundManagerByName(name);

@@ -19,6 +19,7 @@ public interface PortfolioMapper {
     int deletePortfolio(int portfolioId);
     int updatePortfolio(Portfolio p);
     List<Portfolio>  getPortfolios();
+    List<Portfolio> getPortFolioByFundManagerID(@Param("fmID")int fmID);
     Portfolio getPorfolio(int portfolioId);
     Portfolio addPositionByPortId(int portfolioId);
 }
