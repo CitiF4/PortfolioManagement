@@ -4,6 +4,11 @@ import Model.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+
+//import java.util.Date;
+
+
+
 import java.util.List;
 
 /**
@@ -15,7 +20,17 @@ public interface AdminService {
     //admin view the distinct list of positions
     List<Position> queryForDistinctPositions();
 
+
     boolean validateAdmin(String name);
+
+    void uploadFXrate(String base,String term,double rate,Date date);
+
+    List<Fxrate> queryForDistinctFXrate();
+
+    List<Information> getRecentPrice(String symbol, String type);
+
+    void createInformationForPrice(String symbol, String type, double price, String ccy, java.util.Date date);
+
     void createFm(Fundmanager f);
     void updateRate(Fxrate f);
     void updatePrice(Information info);//Position don't need change price
