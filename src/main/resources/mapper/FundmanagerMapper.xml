@@ -118,12 +118,12 @@
   <resultMap id="selectFmMap" type="Model.Fundmanager">
     <id property="id" column="id"/>
     <result property="name" column="name"/>
-    <collection property="portfolios" ofType="Model.Portfolio" select="selectPortflio" column="id">
+    <collection property="portfolios" ofType="Model.Portfolio" select="getPortfolio" column="id">
       <id property="id" column="id"/>
       <result property="id" column="id"/>
       <result property="name" column="name"/>
       <result property="date" column="date"/>
-      <result property="cash" column="cash"/>
+      <result property="curCash" column="cash"/>
       <result property="initCash" column="initCash"/>
       <result property="fmid" column="FMid"/>
     </collection>
@@ -132,7 +132,7 @@
   select * from fundmanager where id = #{fmid}
 </select>
 
-  <select id="selectPortflio" parameterType="int" resultType="Model.Portfolio">
+  <select id="getPortfolio" parameterType="int" resultType="Model.Portfolio">
     select * from portfolio where FMid = #{id}
   </select>
 </mapper>

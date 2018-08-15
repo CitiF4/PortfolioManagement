@@ -3,6 +3,8 @@ package Dao;
 import Model.Fundmanager;
 import Model.FundmanagerExample;
 import java.util.List;
+
+import Model.Portfolio;
 import org.apache.ibatis.annotations.Param;
 
 public interface FundmanagerMapper {
@@ -13,4 +15,5 @@ public interface FundmanagerMapper {
     Fundmanager getFundManagerByName(String name);
     int updateFundmanager(Fundmanager f);
     Fundmanager addPorfolioByfmId(int fmid);//set fundmanager.setPorfolioList()
+    List<Portfolio> getPortfolio(int fmid);
 }

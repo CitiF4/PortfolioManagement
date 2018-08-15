@@ -58,7 +58,7 @@ public class AdminServiceImplTest {
         List<Fundmanager> fundManagers = fundmanagerMapper.getFundManagers();
         adminServiceImpl.getFmShowInfo(fundManagers);
         for (Fundmanager fundmanager : fundManagers) {
-            System.out.println("Fundmanger: " + fundmanager.getName() + " Cash: " + fundmanager.getCash() + " InitCash" + fundmanager.getTotalcash() + " Value: " + fundmanager.getValue());
+            System.out.println("Fundmanger: " + fundmanager.getName() + " Cash: " + fundmanager.getCurCash() + " InitCash" + fundmanager.getInitCash() + " Value: " + fundmanager.getValue());
         }
     }
 }

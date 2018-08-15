@@ -10,10 +10,12 @@
     <result column="qty" jdbcType="INTEGER" property="qty" />
     <result column="symbol" jdbcType="VARCHAR" property="symbol" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="country" jdbcType="VARCHAR" property="ccy" />
+    <result column="ccy" jdbcType="VARCHAR" property="ccy" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="portfolioID" jdbcType="INTEGER" property="portfolioid" />
     <result column="date" jdbcType="DATE" property="date" />
+    <result column="value" jdbcType="DOUBLE" property="value"/>
+    <result column="profit" jdbcType="DOUBLE" property="profit"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--

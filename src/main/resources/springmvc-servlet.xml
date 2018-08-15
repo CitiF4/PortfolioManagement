@@ -17,11 +17,14 @@
     <!-- if you use annotation you must configure following setting -->
     <mvc:annotation-driven />
 
-    <mvc:resources location="/WEB-INF/PortfolioViews/css" mapping="/css/**" />
-    <mvc:resources location="/WEB-INF/PortfolioViews/fonts/poppins" mapping="/fonts/**" />
-    <mvc:resources location="/WEB-INF/PortfolioViews/vendor" mapping="/vendor/**" />
-    <mvc:resources location="/WEB-INF/PortfolioViews/images" mapping="/images/**" />
+    <!--<mvc:resources location="/WEB-INF/PortfolioViews/css" mapping="/css/**" />-->
+    <!--<mvc:resources location="/WEB-INF/PortfolioViews/fonts/poppins" mapping="/fonts/**" />-->
+    <!--<mvc:resources location="/WEB-INF/PortfolioViews/vendor" mapping="/vendor/**" />-->
+    <!--<mvc:resources location="/WEB-INF/PortfolioViews/images" mapping="/images/**" />-->
+    <!--<mvc:resources location="/WEB-INF/PortfolioViews/images/icon" mapping="/icon/**" />-->
     <!--<mvc:resources location="/resource/" mapping="/resource/**" />-->
+
+
     <!-- configure the InternalResourceViewResolver -->
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"-->
           <!--id="internalResourceViewResolver">-->

@@ -24,12 +24,12 @@ public interface FundManagerService {
     void deletePosition(int positionId);
     void updatePortfolio(Portfolio p);
     void updatePortfolioById(int id,String name);
-    List<Portfolio> getPortfolios();
+    List<Portfolio> getPortfoliosByName(String fmName);
     Portfolio getPortfolio(int portfolioId);
     List<Information> getInformations();
-    List<Information> getInformation(String type, String date);
+    List<Information> getInformation(String type, Date date);
     void getPortShowInfo(List<Portfolio> portfolios);
-    List<Portfolio> sortPortfolio();//find best portfolio
+    List<Portfolio> getPortfolios(int fid);
 //    sort,filter,top,tail datasets
 //    top,worst performing funds
 
