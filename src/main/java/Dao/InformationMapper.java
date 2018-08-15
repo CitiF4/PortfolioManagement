@@ -10,11 +10,19 @@ import org.apache.ibatis.annotations.Param;
 public interface InformationMapper {
 
    // List<Information> queryForInformation(String type, String date);
+
    List<Information> getInformationOfSameType(String type);
     int deleteInformation(int infoId);
     int updateInformation(Information info);
     int createInformation(Information info);
     List<Information> getInformationPeriod(String type,Date dateFrom,Date dateTo);
+
+    int createInformationForPrice(@Param("symbol")String symbol,@Param("type") String type,@Param("price") double price,@Param("ccy") String ccy,@Param("date") Date date);
+
+
+    List<Information> getRecentPrice(@Param("symbol")String symbol,@Param("type") String type);
+
+
     List<Information> queryForInformation(String type);
 
 

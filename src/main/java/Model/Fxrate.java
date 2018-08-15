@@ -13,6 +13,11 @@ public class Fxrate {
 
     private Date date;
 
+    public Fxrate(String base,String term){
+        this.base = base;
+        this.term = term;
+    }
+
     public Fxrate(int id, String base, String term, double rate, Date date) {
         this.id = id;
         this.base = base;
