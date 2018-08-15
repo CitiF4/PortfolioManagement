@@ -18,8 +18,17 @@
     </set>
     where id=#{id}
   </update>
+  <select id="queryForDistinctFXrate" resultType="Model.Fxrate">
+    SELECT distinct base,term FROM fxrate
+  </select>
   <select id="getFxRates" resultType="Model.Fxrate">
     SELECT * FROM fxrate
   </select>
+
+  <insert id="uploadFXrate" parameterType="Model.Fxrate">
+    insert into fxrate (base,term,rate,date)
+    values (#{base,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR},#{rate,jdbcType=DOUBLE},#{date,jdbcType=DATE})
+  </insert>
+
 
 </mapper>

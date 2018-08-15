@@ -152,13 +152,27 @@
       #{type,jdbcType=VARCHAR}, #{ccy,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP})
   </insert>
 
-  <insert id="createInformation" parameterType="Model.Information">
+
+  <insert id="createInformation" parameterType="Model.Information"></insert>
+
+
+  <insert id="createInformationForPrice" parameterType="Model.Information">
+    insert into information (symbol,price,type,ccy,date)
+    values (#{symbol,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},#{type,jdbcType=VARCHAR},#{ccy,jdbcType=VARCHAR},#{date,jdbcType=DATE})
+  </insert>
+
+  <insert id="createInfomation" parameterType="Model.Information">
+
     insert into information (symbol,price,type,ccy,date)
     values (#{symbol,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},#{type,jdbcType=VARCHAR},#{ccy,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR})
   </insert>
 
   <select id="queryForInformation" resultType="Model.Information">
     SELECT * from information where type = #{type}
+  </select>
+
+  <select id="getRecentPrice" resultType="Model.Information">
+    SELECT * from information where symbol = #{symbol} and type = #{type}  ORDER BY date desc LIMIT 0,5
   </select>
 
 
