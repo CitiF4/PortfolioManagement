@@ -25,4 +25,9 @@
     </set>
     where id=#{id}
   </update>
+
+  <select id="getPortfolios" resultType="Model.Portfolio">
+    SELECT * FROM portfolio
+  </select>
+
 </mapper>

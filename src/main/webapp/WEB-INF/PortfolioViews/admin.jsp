@@ -57,7 +57,7 @@
                                 <i class="fas fa-copy"></i>AddFundmanager</a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="updatePrice.html">
+                            <a id="updatePrice" class="js-arrow" href="updatePrice.jsp">
                                 <i class="fas fa-chart-bar"></i>Update Price</a>
                         </li>
                         <li class="has-sub">
@@ -160,36 +160,7 @@
                         <!--</div>-->
 
                         <!--displayFundManager-->
-                        <!--<div class="row">-->
-                            <!--<div class="col-md-4">-->
-                                <!--<div class="card">-->
-                                    <!--<div class="card-header">-->
-                                        <!--<strong class="card-title mb-3">FundManager</strong>-->
-                                    <!--</div>-->
-                                    <!--<div class="card-body">-->
-                                        <!--<div class="mx-auto mr-auto text-center d-block">-->
-                                            <!--<h4 id="name" class="text-sm-center mt-2 mb-1"></h4>-->
-                                            <!--<label class="text-sm-center mt-2 mb-1">Total Cash :</label>-->
-                                            <!--<span id="cash"></span>-->
-                                            <!--<br>-->
-                                            <!--<label class="text-sm-center mt-2 mb-1">Total Value :</label>-->
-                                            <!--<span id="value"></span>-->
-                                            <!--<br>-->
-                                            <!--<label class="text-sm-center mt-2 mb-1">Profit Rate :</label>-->
-                                            <!--<span id="rate"></span>-->
-                                        <!--</div>-->
-                                        <!--<hr>-->
-                                        <!--<div class="table-data-feature">-->
-                                            <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editFM()">-->
-                                                <!--<i class="zmdi zmdi-edit"></i>-->
-                                            <!--</button>-->
-                                            <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteFM()">-->
-                                                <!--<i class="zmdi zmdi-delete"></i>-->
-                                            <!--</button>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                        <div class="row">
                             <!--<div class="col-md-4">-->
                                 <!--<div class="card">-->
                                     <!--<div class="card-header">-->
@@ -212,14 +183,14 @@
                                             <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Edit">-->
                                                 <!--<i class="zmdi zmdi-edit"></i>-->
                                             <!--</button>-->
-                                            <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Delete">-->
+                                            <!--<button id="submit" class="item" data-toggle="tooltip" data-placement="top" title="Delete">-->
                                                 <!--<i class="zmdi zmdi-delete"></i>-->
                                             <!--</button>-->
                                         <!--</div>-->
                                     <!--</div>-->
                                 <!--</div>-->
                             <!--</div>-->
-                        <!--</div>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -317,22 +288,29 @@
         });
 
         function submitFundManager(e) {
-            //传portfolio数据给后台
+            //
             $.ajax({
                 type:'POST',
                 url:'/admin/createFundManager',
                 data:{
-                    FundManagerName:$('#fundManager_name').text(),
+                    name:$('#fundManager_name').val(),
                 },
                 dataType:'json',
                 success:function(){
                     console.log("create success");
+                    //get data from backend-model
+
+                    // var fundManager = "${requestScope.fundManager}";
+                    // fundManager = eval("(" + fundManager + ")");
+                    // $.each(fundManager, function(i, result){
+                    //     displayFMs(result);
+                    // });
                 }
             })
         }
     </script>
-    <script>
 
+    <script>
         $('#createReport').click(function(){
             //get report information from database
             $.ajax({
@@ -342,14 +320,15 @@
                 dataType:'json',
                 success:function(){
                     //get data from backend-model
-                    var report = "${requestScope.report}";
-                    report = eval("(" + report + ")");
-                    $.each(report, function(i, result){
-                        $("#bestPortfolioName").text(result.bestPortfolioName);
-                        $("#itsBestfundManagerName").text(result.itsfundManagerName);
-                        $("#worstPortfolioName").text(result.worstPortfolioName);
-                        $("#itsWorstfundManagerName").text(result.itsfundManagerName);
-                    });
+
+                    // var report = "${requestScope.report}";
+                    // report = eval("(" + report + ")");
+                    // $.each(report, function(i, result){
+                    //     $("#bestPortfolioName").innerHTML = result.bestPortfolioName;
+                    //     $("#itsBestFundManagerName").innerHTML = result.itsBestFundManagerName;
+                    //     $("#worstPortfolioName").innerHTML = result.worstPortfolioName;
+                    //     $("#itsWorstFundManagerName").innerHTML = result.itsWorstFundManagerName;
+                    // });
                 }
             });
 
@@ -373,79 +352,63 @@
     </script>
 
     <script>
-    $(document).ready(function() {
+
+    function displayFMs(fm) {
+        var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">FundManager</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
+        card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ fm.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ fm.initialCash + '<label class="text-sm-center mt-2 mb-1">Total Cash :</label>'+ '<span id="cash">'+ fm.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Total Value :</label> <span id="value">'+ fm.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">Profit Rate :</label> <span id="rate">'+ fm.rate
+            + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editFM()"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteFM($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
+        $(".row").append(card);
+    }
+
+    function deleteFM(e) {
+        // $('#delete').parent().prev().prev().find('h4').text()   checked;
+        var name = e.parent().prev().prev().find('h4').innerHTML;
+        $.ajax({
+            url:"/admin/deleteFundManager" + name,
+            contentType:"application/json",
+            dataType:"json",
+            type:"delete",
+            // data:null,
+            // async:true,
+            success:function(response){
+                for(var i = 0; i < response.length; i++){
+                    displayFMs(response[i]);
+                }
+            }
+        });
+    }
+
+    function editFM(e) {
+        // $.ajax({
+        //             url:"/admin/editFundManager",
+        //             dataType:"json",
+        //             type:"post", //编辑
+        //             data:{
+        //                 portfolioID:$("#name").text()
+        //             },
+        //             // async:true,
+        //             success:function(response){
+        //                     $("#name").text(response.name);
+        //                 });
+        //             }
+        // });
+    }
+
+
+    $(document).ready(function () {
         $.ajax({
             url:"/getFundManager",
             dataType:"json",
 //           data:{type:type},
             success:function(response){
-                console.log(response);
+                // console.log(response);
                 for(var i = 0; i < response.length; i++){
-
                     displayFMs(response[i]);
                 }
             }
-        })});
-    function displayFMs(fm) {
-        var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">FundManager</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
-        card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ fm.name +'</h4> <label class="text-sm-center mt-2 mb-1">Total Cash :</label>'+ '<span id="cash">'+ fm.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Total Value :</label> <span id="value">'+ fm.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">Profit Rate :</label> <span id="rate">'+ fm.rate
-            + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editFM()"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteFM()"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
-        $(".row").append(card);
-    }
+        })
+    });
 
-    function deleteFM() {
-        $.ajax({
-            url:"/admin/deleteFundManager",
-            dataType:"json",
-            type:"get",
-            data:{
-                fundManagerID:$("#name").text()
-            },
-            // async:true,
-            success:function(){
-                //get data from backend-model
-                var fundManager = "${requestScope.fundManager}";
-                fundManager = eval("(" + fundManager + ")");
-                $.each(fundManager, function(i, result){
-                    displayFMs(result);
-                });
-            }
-        });
-    }
-
-    function editFM() {
-        $.ajax({
-                    url:"/admin/editfundManager",
-                    dataType:"json",
-                    type:"get",
-                    data:{
-                        portfolioID:$("#name").text()
-                    },
-                    // async:true,
-                    success:function(){
-                        //get data from backend-model
-                        var fundManager = "${requestScope.fundManager}";
-                        fundManager = eval("(" + fundManager + ")");
-                        $.each(fundManager, function(i, result){
-                            $("#name").text(result.name);
-                        });
-                    }
-        });
-    }
-        $.ajax({
-            url:"/admin",
-            dataType:"json",
-            type:"get",
-            data:null,
-            success:function(){
-                //get data from backend-model
-                var fundManager = "${requestScope.fundManager}";
-                fundManager = eval("(" + fundManager + ")");
-                $.each(fundManager, function(i, result){
-                    displayFMs(result);
-                });
-            }
-        });
     </script>
 </body>
 

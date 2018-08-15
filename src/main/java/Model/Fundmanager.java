@@ -9,9 +9,9 @@ public class Fundmanager {
 
     private double rate;
 
-    private double Totalcash;
+    private double intiCash;
 
-    private double cash;
+    private double curCash;
 
     private List<Portfolio> portfolios;
 
@@ -61,20 +61,20 @@ public class Fundmanager {
         this.rate = rate;
     }
 
-    public double getTotalcash() {
-        return Totalcash;
+    public double getInitCash() {
+        return intiCash;
     }
 
-    public void setTotalcash(double totalcash) {
-        Totalcash = totalcash;
+    public void setInitCash(double intiCash) {
+        this.intiCash = intiCash;
     }
 
-    public double getCash() {
-        return cash;
+    public double getCurCash() {
+        return curCash;
     }
 
-    public void setCash(double cash) {
-        this.cash = cash;
+    public void setCurCash(double curCash) {
+        this.curCash = curCash;
     }
     public String toString(){
         return "name : " + this.name + " id : " + this.id;

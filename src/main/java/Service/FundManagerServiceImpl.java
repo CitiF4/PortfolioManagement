@@ -67,9 +67,10 @@ public class FundManagerServiceImpl implements FundManagerService {
         portfolioMapper.updatePortfolio(p);
     }
 
-    public List<Portfolio> getPortfolios() {
+    public List<Portfolio> getPortfoliosByName(String fmName) {
 
-        return portfolioMapper.getPortfolios();
+        int id = fundmanagerMapper.getFundManagerByName(fmName).getId();
+        return fundmanagerMapper.getPortfolio(id);
     }
 
     public Portfolio getPortfolio(int portfolioId) {
@@ -78,10 +79,6 @@ public class FundManagerServiceImpl implements FundManagerService {
     }
 
 
-    public List<Portfolio> sortPortfolio() {
-
-        return null;
-    }
     public List<Information> getInformations() {
         List<Information> bInfo = informationMapper.getInformationOfSameType("Bonds");
         List<Information> fInfo = informationMapper.getInformationOfSameType("Future");
@@ -93,34 +90,31 @@ public class FundManagerServiceImpl implements FundManagerService {
         return bInfo;
     }
 
-    public List<Information> getInformation(String type, String dateS) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = format.parse(dateS);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public List<Information> getInformation(String type, Date date) {
         return informationMapper.getInformationPeriod(type,date,date);
     }
 
     public void getPortShowInfo(List<Portfolio> portfolios) {
         for(Portfolio portfolio : portfolios){
-            double initCash = portfolio.getInitcash();
+            double initCash = portfolio.getInitCash();
             Portfolio portfolioT = portfolioMapper.addPositionByPortId(portfolio.getId());
             portfolio.setPositions(portfolioT.getPositions());
             List<Position> positions = portfolio.getPositions();
             double value = 0.0;
             double cash = initCash;
             for(Position position : positions){
-                value += position.getValue();
                 cash -= position.getValue();
+                value += informationMapper.getRecentPrice(position.getSymbol(),position.getType()).get(0).getPrice()*position.getQty();
             }
             portfolio.setValue(value);
-            portfolio.setCash(cash);
-
+            portfolio.setCurCash(cash);
+            portfolio.setRate(value/portfolio.getInitCash());
 
         }
+    }
+
+    public List<Portfolio> getPortfolios(int fmid) {
+        return fundmanagerMapper.getPortfolio(fmid);
     }
 
     public List<Information> getInformation(String type) {

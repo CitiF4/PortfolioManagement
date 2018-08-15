@@ -9,7 +9,7 @@
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
-    <result column="cash" jdbcType="DOUBLE" property="cash" />
+    <result column="cash" jdbcType="DOUBLE" property="curCash" />
     <result column="FMid" jdbcType="INTEGER" property="fmid" />
     <result column="initCash" jdbcType="DOUBLE" property="initCash" />
   </resultMap>

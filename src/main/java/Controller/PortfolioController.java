@@ -8,15 +8,20 @@ import Service.AdminService;
 import Service.FundManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.util.*;
 
 @Controller
+@SessionAttributes("name")
 public class PortfolioController {
 
 
@@ -56,16 +61,18 @@ public class PortfolioController {
 
     @RequestMapping(value="/deletePortfolio")
     @ResponseBody
-    public Map<String,Object> deletePortfolio(HttpServletRequest request){
+    public Map<String,Object> deletePortfolio(HttpServletRequest request, HttpSession httpSession){
         int pId = Integer.parseInt(request.getParameter("id"));
         fundmanagerServiceImpl.deletePortfolio(pId);
-        List<Portfolio> list= fundmanagerServiceImpl.getPortfolios();
+        String name = httpSession.getAttribute("name").toString();
+        List<Portfolio> portfolios= fundmanagerServiceImpl.getPortfoliosByName(name);
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("list",list);
+        map.put("list",portfolios);
         return map;
     }
 
     @RequestMapping(value="/getPositions")
+    @ResponseBody
     public Map<String,Object>getPositions(HttpServletRequest request){
         int pId = Integer.parseInt(request.getParameter("portfoliosId"));
         List<Position> list = fundmanagerServiceImpl.queryForPositions(pId);
@@ -75,6 +82,7 @@ public class PortfolioController {
     }
 
     @RequestMapping(value="/queryForDistinctPositions")
+    @ResponseBody
     public Map<String,Object>queryForDistinctPositions(HttpServletRequest request){
 
         List<Position> list = adminServiceImpl.queryForDistinctPositions();
@@ -94,6 +102,7 @@ public class PortfolioController {
     }
 
     @RequestMapping(value="queryForDistinctFXrate")
+    @ResponseBody
     public Map<String,Object> queryForDistinctFXrate(HttpServletRequest request){
         List<Fxrate> list = adminServiceImpl.queryForDistinctFXrate();
         Map<String,Object> map = new HashMap<String, Object>();
@@ -104,6 +113,7 @@ public class PortfolioController {
 
 
     @RequestMapping(value = "queryForPortfolioPosition")
+    @ResponseBody
     public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
         int i = Integer.parseInt(request.getParameter("portfolioID"));
         DecimalFormat df = new DecimalFormat("0.00%");
@@ -112,8 +122,8 @@ public class PortfolioController {
         List<Position> ps = fundmanagerServiceImpl.queryForPositions(i);
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("portfolioName",pf.getName());
-        map.put("initCash",pf.getInitcash());
-        map.put("restCash",pf.getCash());
+        map.put("initCash",pf.getCurCash());
+        map.put("restCash",pf.getCurCash());
 
         for (Position pst: ps) {
             List<Information> infoList = adminServiceImpl.getRecentPrice(pst.getSymbol(),pst.getType());
@@ -124,9 +134,9 @@ public class PortfolioController {
            pst.setCurValue(curValue);
            pst.setProfit(curValue-value);
         }
-        map.put("totalValue",valueOfPositions+pf.getCash());
-        map.put("profit",valueOfPositions+pf.getCash()-pf.getInitcash());
-        map.put("rateOfProfit",df.format((valueOfPositions+pf.getCash()-pf.getInitcash())/pf.getInitcash()));
+        map.put("totalValue",valueOfPositions+pf.getCurCash());
+        map.put("profit",valueOfPositions+pf.getCurCash()-pf.getCurCash());
+        map.put("rateOfProfit",df.format((valueOfPositions+pf.getCurCash()-pf.getCurCash())/pf.getCurCash()));
         map.put("positions",ps);
 
 
@@ -137,8 +147,4 @@ public class PortfolioController {
     }
 
 
-    private String purchaseJudge(double cash,int qty,String symbol,String type){
-        //int neededCash = adminServiceImpl.getRecentPrice(symbol,type);
-        return null;
-    }
 }

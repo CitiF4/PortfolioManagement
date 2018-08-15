@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -105,38 +107,63 @@ public class AdminServiceImpl implements AdminService {
             Fundmanager f = fundManagerMapper.addPorfolioByfmId(id);
             List<Portfolio> portfolios = f.getPortfolios();
             double[]db = addCashAndValueForPortfolios(portfolios);
-            fundmanager.setTotalcash(db[1]);
-            fundmanager.setCash(db[0]);
+            fundmanager.setInitCash(db[1]);
+            fundmanager.setCurCash(db[0]);
             fundmanager.setValue(db[2]);
+            fundmanager.setRate(db[2]/db[1]);
         }
     }
-    public List<Portfolio> sortPortfolio() {
-        List<Portfolio> portfolios = positionMapper.getPortfolios();
-        for(Portfolio portfolio : portfolios){
 
-        }
-        return null;
+    public List<Portfolio> setPortfolioRate() {
+        List<Portfolio> portfolios = adminMapper.getPortfolios();
+        addCashAndValueForPortfolios(portfolios);
+        return portfolios;
     }
+
+
+    public void sortPortfolio(List<Portfolio> portfolios) {
+        Collections.sort(portfolios, new Comparator<Portfolio>() {
+            public int compare(Portfolio o1, Portfolio o2) {
+                if(o1.getRate() - o2.getRate() != 0){
+                    return 0;
+                }else{
+                    if(o1.getRate() - o2.getRate() > 0) {
+                        return -1;
+                    }else return 1;
+                }
+            }
+        });
+    }
+
+    public Fundmanager getFundmanager(Portfolio portfolio) {
+        return fundManagerMapper.getFundManager(portfolio.getFmid());
+    }
+
+    public List<Portfolio> getPortfolios() {
+        return adminMapper.getPortfolios();
+    }
+
     public double[] addCashAndValueForPortfolios(List<Portfolio> portfolios){
 
         double pCash = 0.0;
         double pInitCash = 0.0;
         double pValue = 0.0;
         for(Portfolio portfolio : portfolios){
-            double initCash = portfolio.getInitcash();
+            double initCash = portfolio.getInitCash();
             Portfolio portfolioT = portfolioMapper.addPositionByPortId(portfolio.getId());
             portfolio.setPositions(portfolioT.getPositions());
             List<Position> positions = portfolio.getPositions();
             double value = 0.0;
             double cash = initCash;
             for(Position position : positions){
-                value += position.getValue();
+                value += informationMapper.getRecentPrice(position.getSymbol(),position.getType()).get(0).getPrice()*position.getQty();
                 cash -= position.getValue();
             }
-            portfolio.setValue(value);
-            portfolio.setCash(cash);
+//            portfolio.setValue(value);
+//            portfolio.setCurCash(cash);
+//            portfolio.setRate(value/portfolio.getInitcash());
             pCash += cash;
-            pInitCash += portfolio.getInitcash();
+            pInitCash += portfolio.getInitCash();
             pValue += value;
         }
         double[] db = {pCash,pInitCash,pValue};

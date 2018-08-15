@@ -41,9 +41,9 @@ public interface AdminService {
     Fundmanager getFundManager(int id);
     void updateFundManager(Fundmanager f);
     void getFmShowInfo(List<Fundmanager> fundmanagers);
-    List<Portfolio> sortPortfolio();//find best portfolio above the whole fm
-
-    //    sort,filter,top,tail datasets
-   //    top,worst performing funds
+    List<Portfolio> setPortfolioRate();
+    void sortPortfolio(List<Portfolio> portfolios);
+    Fundmanager getFundmanager(Portfolio portfolio);
+    List<Portfolio> getPortfolios();
 }
 

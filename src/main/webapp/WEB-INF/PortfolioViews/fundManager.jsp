@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Card</title>
+    <title>FundManager</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -49,22 +49,13 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Add Portfolio</a>
+                            <a href="#">
+                                <i class="fas fa-chart-bar"></i>Create</a>
                         </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="fundManager.jsp">
-                                <i class="fas fa-tachometer-alt"></i>Show Protfolios</a>
+                                <i class="fas fa-tachometer-alt"></i>Portfolios</a>
                         </li>
-                        <!--<li>-->
-                            <!--<a href="form.html">-->
-                                <!--<i class="far fa-check-square"></i>Protfolios</a>-->
-                        <!--</li>-->
-                        <!--<li class="has-sub">-->
-                            <!--<a class="js-arrow" href="#">-->
-                                <!--<i class="fas fa-copy"></i>Pages</a>-->
-                        <!--</li>-->
-
                     </ul>
                 </nav>
             </div>
@@ -107,64 +98,64 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong class="card-title mb-3">Portfolio</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mx-auto mr-auto text-center d-block">
-                                            <h4 id="name" class="text-sm-center mt-2 mb-1"></h4>
-                                            <label class="text-sm-center mt-2 mb-1">Cash :</label>
-                                            <span id="cash"></span>
-                                            <br>
-                                            <label class="text-sm-center mt-2 mb-1">Value :</label>
-                                            <span id="value"></span>
-                                            <br>
-                                            <label class="text-sm-center mt-2 mb-1">ProfitRate :</label>
-                                            <span id="rate"></span>
-                                        </div>
-                                        <hr>
-                                        <div class="table-data-feature">
-                                            <button id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editProtfolio()">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteProtfolio()">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong class="card-title mb-3">Portfolio</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mx-auto mr-auto text-center d-block">
-                                            <h4 class="text-sm-center mt-2 mb-1">PortfolioName</h4>
-                                            <label class="text-sm-center mt-2 mb-1">Cash :</label>
-                                            <span>$1500</span>
-                                            <br>
-                                            <label class="text-sm-center mt-2 mb-1">Value :</label>
-                                            <span>$3000</span>
-                                            <br>
-                                            <label class="text-sm-center mt-2 mb-1">Rate :</label>
-                                            <span>10%</span>
-                                        </div>
-                                        <hr>
-                                        <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--<div class="col-md-4">-->
+                                <!--<div class="card">-->
+                                    <!--<div class="card-header">-->
+                                        <!--<strong class="card-title mb-3">Portfolio</strong>-->
+                                    <!--</div>-->
+                                    <!--<div class="card-body">-->
+                                        <!--<div class="mx-auto mr-auto text-center d-block">-->
+                                            <!--<h4 id="name" class="text-sm-center mt-2 mb-1"></h4>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">Cash :</label>-->
+                                            <!--<span id="cash"></span>-->
+                                            <!--<br>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">Value :</label>-->
+                                            <!--<span id="value"></span>-->
+                                            <!--<br>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">ProfitRate :</label>-->
+                                            <!--<span id="rate"></span>-->
+                                        <!--</div>-->
+                                        <!--<hr>-->
+                                        <!--<div class="table-data-feature">-->
+                                            <!--<button id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editProtfolio()">-->
+                                                <!--<i class="zmdi zmdi-edit"></i>-->
+                                            <!--</button>-->
+                                            <!--<button id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteProtfolio()">-->
+                                                <!--<i class="zmdi zmdi-delete"></i>-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4">-->
+                                <!--<div class="card">-->
+                                    <!--<div class="card-header">-->
+                                        <!--<strong class="card-title mb-3">Portfolio</strong>-->
+                                    <!--</div>-->
+                                    <!--<div class="card-body">-->
+                                        <!--<div class="mx-auto mr-auto text-center d-block">-->
+                                            <!--<h4 class="text-sm-center mt-2 mb-1">PortfolioName</h4>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">Cash :</label>-->
+                                            <!--<span>$1500</span>-->
+                                            <!--<br>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">Value :</label>-->
+                                            <!--<span>$3000</span>-->
+                                            <!--<br>-->
+                                            <!--<label class="text-sm-center mt-2 mb-1">Rate :</label>-->
+                                            <!--<span>10%</span>-->
+                                        <!--</div>-->
+                                        <!--<hr>-->
+                                        <!--<div class="table-data-feature">-->
+                                            <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Edit">-->
+                                                <!--<i class="zmdi zmdi-edit"></i>-->
+                                            <!--</button>-->
+                                            <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Delete">-->
+                                                <!--<i class="zmdi zmdi-delete"></i>-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -199,72 +190,59 @@
     <script src="js/main.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(doucument).ready(function () {
             $.ajax({
-           url:"/getPortfolios",
-           dataType:"json",
+                url: "/getPortfolios",
+                dataType: "json",
 //           data:{type:type},
-           success:function(response){
-               console.log(response);
-               for(var i = 0; i < response.length; i++){
-
-                   displayProtfolios(response[i]);
-               }
-           }
-       })});
-
-        function displayProtfolios(protfolio) {
-            var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">Portfolio</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
-            card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ protfolio.name +'</h4> <label class="text-sm-center mt-2 mb-1">Cash :</label>'+ '<span id="cash">'+ protfolio.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Value :</label> <span id="value">'+ protfolio.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">ProfitRate :</label> <span id="rate">'+ protfolio.rate
-                + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editProtfolio()"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteProtfolio()"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
-            $(".row").append(card);
-        }
-
-        function deleteProtfolio() {
-            $.ajax({
-                url:"/fundManager/deletePortfolio",
-                dataType:"json",
-                type:"get",
-                data:{
-                    portfolioID:$("#name").text()
-                },
-                // async:true,
-                success:function(data){
-                    for(var protfolio in data.parseJSON){
-                        displayProtfolios(protfolio);
+                success: function (response) {
+                    // console.log(response);
+                    for (var i = 0; i < response.length; i++) {
+                        displayProtfolios(response[i]);
                     }
                 }
             });
+        });
+
+        function displayProtfolios(portfolio) {
+            var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">Portfolio</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
+            card += '<h5 id="id" style="display: none">'+ portfolio.id + '</h5>' + '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ portfolio.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ portfolio.initialCash + '<label class="text-sm-center mt-2 mb-1">Cash :</label>'+ '<span id="cash">'+ portfolio.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Value :</label> <span id="value">'+ portfolio.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">ProfitRate :</label> <span id="rate">'+ portfolio.rate
+                + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editPortfolio($(this))"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deletePortfolio($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
+            $(".row").append(card);
         }
 
-        function editProtfolio() {
+        function deletePortfolio(e) {
+            var id = e.parent().prev().prev().find('h5').innerHTML;
             $.ajax({
-                url:"/fundManager/editPortfolio",
+                url:"/fundManager/deletePortfolio" + id,
+                contentType:"application/json",
                 dataType:"json",
-                type:"get",
-                data:{
-                    portfolioID:$("#name").text()
-                },
-                async:true,
-                success:function(){
-                    $("#name").text(data.parseJSON.name);
+                type:"delete",
+                // data:null,
+                // async:true,
+                success:function(response){
+                    for(var i = 0; i < response.length; i++){
+                        displayProtfolios(response[i]);
+                    }
+
                 }
             });
         }
-    </script>
-    <script>
-        $.ajax({
-            url: "/fundManager",
-            dataType: "json",
-            type: "get",
-            data: null,
-            success: function () {
-                // for (var portfolio in data.parseJSON) {
-                //     displayPortfolios(portfolio);
-                // }
-                console.log("success");
-            }
-        });
+
+        function editPortfolio($) {
+            // $.ajax({
+            //     url:"/fundManager/editPortfolio",
+            //     dataType:"json",
+            //     type:"get",
+            //     data:{
+            //         portfolioID:$("#id").text()
+            //     },
+            //     async:true,
+            //     success:function(){
+            //         $("#name").text(data.parseJSON.name);
+            //     }
+            // });
+        }
     </script>
 
 </body>

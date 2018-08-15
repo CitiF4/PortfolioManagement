@@ -34,7 +34,7 @@ public class FundManagerServiceImplTest {
         List<Portfolio> portfolios = portfolioMapper.getPortfolios();
         fundManagerServiceImpl.getPortShowInfo(portfolios);
         for(Portfolio portfolio : portfolios){
-            System.out.println("Portfolio : " + portfolio.getId() + " cash: " + portfolio.getCash() + " value: " + portfolio.getValue() + " initCash: " + portfolio.getInitcash());
+            System.out.println("Portfolio : " + portfolio.getId() + " cash: " + portfolio.getCurCash() + " value: " + portfolio.getValue() + " initCash: " + portfolio.getInitCash());
         }
     }
 
