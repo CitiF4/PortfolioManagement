@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Fxrate;
 import Model.Portfolio;
 import Model.Position;
 import Service.AdminService;
@@ -77,7 +78,34 @@ public class PortfolioController {
         return map;
     }
 
+    @RequestMapping(value="createInformationForPrice")
+    public void createInformationForPrice(HttpServletRequest request){
+        String symbol = request.getParameter("symbol");
+        String type = request.getParameter("type");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String ccy = request.getParameter("ccy");
 
+        adminServiceImpl.createInformationForPrice(symbol,type,price,ccy,new Date());
+    }
 
+    @RequestMapping(value="queryForDistinctFXrate")
+    public Map<String,Object> queryForDistinctFXrate(HttpServletRequest request){
+        List<Fxrate> list = adminServiceImpl.queryForDistinctFXrate();
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("list",list);
+        return map;
+    }
+
+    @RequestMapping(value = "queryForPortfolioPosition")
+    public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
+        int i = Integer.parseInt(request.getParameter("portfolioID"));
+
+        Portfolio pf = fundmanagerServiceImpl.getPortfolio(i);
+        List<Position> ps = fundmanagerServiceImpl.queryForPositions(i);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("portfolioName",pf.getName());
+        map.put("","");
+        return  null;
+    }
 
 }
