@@ -9,8 +9,9 @@
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="date" jdbcType="TIMESTAMP" property="date" />
-    <result column="cash" jdbcType="DECIMAL" property="cash" />
+    <result column="cash" jdbcType="DOUBLE" property="cash" />
     <result column="FMid" jdbcType="INTEGER" property="fmid" />
+    <result column="initCash" jdbcType="DOUBLE" property="initCash" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -164,5 +165,29 @@
     #{fmId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP})
   </insert>
 
+  <resultMap id="selectPortMap" type="Model.Portfolio">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <collection column="id" ofType="Model.Position" property="positions" select="selectPosition" >
+      <result column="position_id" property="id" />
+      <result column="qty"  property="qty" />
+      <result column="symbol" property="symbol" />
+      <result column="price" property="price" />
+      <result column="ccy" property="ccy" />
+      <result column="type" property="type" />
+      <result column="portfolioID" property="portfolioid" />
+      <result column="date" property="date" />
+      <result column="value" property="value" />
+      <result column="profit" property="profit" />
+    </collection>
+  </resultMap>
+
+  <select id="addPositionByPortId" resultMap="selectPortMap" resultType="Model.Portfolio">
+    select * from portfolio where id = #{portfolioId}
+  </select>
+
+  <select id="selectPosition" parameterType="int" resultType="Model.Position">
+    select * from position where portfolioid = #{portfolioid}
+  </select>
 
 </mapper>

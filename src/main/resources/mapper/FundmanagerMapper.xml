@@ -105,4 +105,34 @@
   <select id="getFundManager" resultType="Model.Fundmanager">
     SELECT * from fundmanager where id = #{FmId}
   </select>
+
+  <select id="getFundManagerByName" resultType="Model.Fundmanager">
+    SELECT * from fundmanager where name = #{name}
+  </select>
+
+  <select id="getFundManagerById" parameterType="int" resultType="Model.Fundmanager">
+    SELECT * from fundmanager where id = #{id}
+  </select>
+
+
+  <resultMap id="selectFmMap" type="Model.Fundmanager">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <collection property="portfolios" ofType="Model.Portfolio" select="selectPortflio" column="id">
+      <id property="id" column="id"/>
+      <result property="id" column="id"/>
+      <result property="name" column="name"/>
+      <result property="date" column="date"/>
+      <result property="cash" column="cash"/>
+      <result property="initCash" column="initCash"/>
+      <result property="fmid" column="FMid"/>
+    </collection>
+</resultMap>
+<select id="addPorfolioByfmId" parameterType="int" resultMap="selectFmMap">
+  select * from fundmanager where id = #{fmid}
+</select>
+
+  <select id="selectPortflio" parameterType="int" resultType="Model.Portfolio">
+    select * from portfolio where FMid = #{id}
+  </select>
 </mapper>

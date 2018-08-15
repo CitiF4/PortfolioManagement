@@ -1,11 +1,14 @@
 package Service;
 
+import Dao.FundmanagerMapper;
 import Model.Fundmanager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * Created by mandy on 2018/8/12.
@@ -16,6 +19,9 @@ public class AdminServiceImplTest {
 
     @Autowired
     private AdminServiceImpl adminServiceImpl;
+
+    @Autowired
+    private FundmanagerMapper fundmanagerMapper;
 
     @Test
     public void createFm() throws Exception {
@@ -47,4 +53,12 @@ public class AdminServiceImplTest {
     public void sortPortfolio() throws Exception {
     }
 
+    @Test
+    public void test_getFmShowInfo() {
+        List<Fundmanager> fundManagers = fundmanagerMapper.getFundManagers();
+        adminServiceImpl.getFmShowInfo(fundManagers);
+        for (Fundmanager fundmanager : fundManagers) {
+            System.out.println("Fundmanger: " + fundmanager.getName() + " Cash: " + fundmanager.getCash() + " InitCash" + fundmanager.getTotalcash() + " Value: " + fundmanager.getValue());
+        }
+    }
 }
