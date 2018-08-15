@@ -11,6 +11,7 @@ public class Portfolio {
      *
      * @mbggenerated
      */
+    private double rate;
     private double value;
     private int id;
 
@@ -217,5 +218,29 @@ public class Portfolio {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getInitCash() {
+        return initCash;
+    }
+
+    public void setInitCash(double initCash) {
+        this.initCash = initCash;
+    }
+
+    public String tooString(){
+        return "name :" + name + " cash :" + cash;
     }
 }

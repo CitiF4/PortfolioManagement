@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -28,30 +26,43 @@ public class LoginController {
     @Autowired
     FundManagerService fundManagerServiceImpl;
 
-    @RequestMapping(value = "/login")
-    public ModelAndView loginProcess(@RequestParam(value = "name", required = false) String name,@RequestParam(value = "type") String type) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginProcess(@RequestParam(value = "name", required = false) String name,@RequestParam(value = "type",required = false) String type) {
         System.out.println("i am login" + name + ";" + type);
-        ModelAndView mdv = new ModelAndView();
-        if(name == null){
-            mdv.setViewName("login");
-        }else{
-            if(type.equals("admin") && adminServiceImpl.validateAdmin(name)){
+        if (name == null) {
+            return "login";
+        } else {
+            if (type.equals("admin") && adminServiceImpl.validateAdmin(name)) {
                 System.out.println("this is a admin!!");
-                mdv.setViewName("admin");
-                List<Fundmanager> fundmanagers = adminServiceImpl.getFundManagers();
-                adminServiceImpl.getFmShowInfo(fundmanagers);
-                mdv.addObject("list",fundmanagers);
-            }else if(type.equals("fundManager") && fundManagerServiceImpl.validateFm(name)){
-                mdv.setViewName("fundmanager");
-                List<Portfolio> portfolios = fundManagerServiceImpl.getPortfolios();
-                fundManagerServiceImpl.getPortShowInfo(portfolios);
-                mdv.addObject("list","portfolios");
+                return "admin";
+            } else if (type.equals("fundManager") && fundManagerServiceImpl.validateFm(name)) {
+                System.out.println("this is a fm2!!");
 
-            }else {
-                mdv.setViewName("error");
+                return "fundManager";
+
+
+            } else {
+                return "login";
             }
-
         }
-        return mdv;
+    }
+
+    @RequestMapping("/getFundManager")
+    @ResponseBody
+    public  List<Fundmanager> loginProcessFm(){
+        List<Fundmanager> fundmanagers = adminServiceImpl.getFundManagers();
+        System.out.println(fundmanagers.size());
+        adminServiceImpl.getFmShowInfo(fundmanagers);
+        return fundmanagers;
+
+    }
+
+    @RequestMapping("/getPortfolios")
+    @ResponseBody
+    public  List<Portfolio> loginProcessAd(){
+        List<Portfolio> portfolios = fundManagerServiceImpl.getPortfolios();
+        fundManagerServiceImpl.getPortShowInfo(portfolios);
+        return portfolios;
+
     }
 }

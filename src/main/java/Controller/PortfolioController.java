@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -37,7 +38,8 @@ public class PortfolioController {
     }
 
 
-    @RequestMapping(value="editPortfolio")
+    @RequestMapping(value="/editPortfolio")
+    @ResponseBody
     public Map<String,Object> editPortfolio(HttpServletRequest request){
         String name = request.getParameter("name");
         int pId = Integer.parseInt(request.getParameter("portfolioId"));
@@ -49,7 +51,8 @@ public class PortfolioController {
     }
 
 
-    @RequestMapping(value="deletePortfolio")
+    @RequestMapping(value="/deletePortfolio")
+    @ResponseBody
     public Map<String,Object> deletePortfolio(HttpServletRequest request){
         int pId = Integer.parseInt(request.getParameter("id"));
         fundmanagerServiceImpl.deletePortfolio(pId);
@@ -59,7 +62,7 @@ public class PortfolioController {
         return map;
     }
 
-    @RequestMapping(value="getPositions")
+    @RequestMapping(value="/getPositions")
     public Map<String,Object>getPositions(HttpServletRequest request){
         int pId = Integer.parseInt(request.getParameter("portfoliosId"));
         List<Position> list = fundmanagerServiceImpl.queryForPositions(pId);
@@ -68,7 +71,7 @@ public class PortfolioController {
         return map;
     }
 
-    @RequestMapping(value="queryForDistinctPositions")
+    @RequestMapping(value="/queryForDistinctPositions")
     public Map<String,Object>queryForDistinctPositions(HttpServletRequest request){
 
         List<Position> list = adminServiceImpl.queryForDistinctPositions();

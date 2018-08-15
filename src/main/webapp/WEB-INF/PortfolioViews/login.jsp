@@ -51,9 +51,9 @@
                                     <input id="fundManager" type="radio" name="type" value="fundManager">FundManager
                                 </div>
                                 <div class="form-group">
-                                    <input id="name" class="au-input au-input--full" type="text" placeholder="name">
+                                    <input id="name"  name="name" class="au-input au-input--full" type="text" placeholder="name">
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" id="submit" type="submit">sign in</button>
                             </form>
                         </div>
                     </div>
@@ -88,30 +88,34 @@
     <script src="js/main.js"></script>
 
     <script type="text/javascript">
-        $(function(){
-            var params = {};
+        $(document).ready(function() {
 
-            var $btn=$(".au-btn");
 
-            var $name=$("#name");
-            var $type=$("input[name='type']:checked").val();
-
-            $btn.on(
-                "click",function(){
-                    $.ajax({
-                        url:"/login",
-                        data:{
-                            "type":$type,
-                            "name":$name
-                        },
-                        dataType:"json",
-                        type:"post",
-                        success:function(){
-                                alert("登陆失败！请重新输入")
-                        }
-                    })
-                })
-        })
+        });
+//        $("#submit").click(function(){
+//            var params = {};
+//
+//            var $btn=$(".au-btn");
+//
+//            var $name=$("#name")[0].value;
+//            var $type=$("input[name='type']:checked").val();
+//            $.ajax({
+//                url:"/login",
+//                data:{
+//                    "type":$type,
+//                    "name":$name
+//                },
+//                dataType:"json",
+//                type:"post",
+//                success:function(response){
+//                    console.log('hi');
+//                },
+//                error:function(){
+//
+//                }
+//
+//            })
+//            });
     </script>
 
 </body>

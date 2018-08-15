@@ -128,6 +128,9 @@
     <url-pattern>*.css</url-pattern>
   </servlet-mapping>
 
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/PortfolioViews/login.jsp</welcome-file>
+  </welcome-file-list>
 
 </web-app>
         

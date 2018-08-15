@@ -119,6 +119,7 @@ public class FundManagerServiceImpl implements FundManagerService {
             portfolio.setValue(value);
             portfolio.setCash(cash);
 
+
         }
     }
 

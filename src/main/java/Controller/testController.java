@@ -41,7 +41,6 @@ public class testController {
     @Qualifier("fundmanagerServiceImpl")
     FundManagerService fundmanagerServiceImpl;
 
-    @RequestMapping(value = "/test")
 //    public ModelAndView test(){
 //
 //
@@ -64,10 +63,6 @@ public class testController {
 //        return modelAndView;
 //    }
 
-    public String test(){
-        System.out.println("login1111111111111");
-        return "login";
-    }
 
     @RequestMapping("/getPortfolio/{id}")
     @ResponseBody
