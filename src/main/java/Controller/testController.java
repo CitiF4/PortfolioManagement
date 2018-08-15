@@ -41,28 +41,6 @@ public class testController {
     @Qualifier("fundmanagerServiceImpl")
     FundManagerService fundmanagerServiceImpl;
 
-//    public ModelAndView test(){
-//
-//
-//        List<Position> lll = adminServiceImpl.queryForDistinctPositions();
-//        for (Position p:lll
-//             ) {
-//            System.out.println(p.getSymbol()+"  "+p.getType());
-//        }
-//
-//
-//        Fundmanager f = adminServiceImpl.getFundManager(9999);
-//        System.out.println("==========================================");
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//        // 添加数据
-//        modelAndView.addObject("id",f.getId());
-//        modelAndView.addObject("name",f.getName());
-//        System.out.println(f.toString());
-//        modelAndView.setViewName("test");
-//        return modelAndView;
-//    }
-
 
     @RequestMapping("/getPortfolio/{id}")
     @ResponseBody

@@ -6,7 +6,9 @@ import Model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.sql.Date;
+
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private InformationMapper informationMapper;
 
+
     @Autowired
     private AdminMapper adminMapper;
 
@@ -42,6 +45,18 @@ public class AdminServiceImpl implements AdminService {
         }
         return false;
     }
+
+    public List<Fxrate> queryForDistinctFXrate(){
+        return fxrateMapper.queryForDistinctFXrate();
+    }
+    public void createInformationForPrice(String symbol, String type, double price, String ccy, java.util.Date date){
+        informationMapper.createInformationForPrice(symbol,type,price,ccy,date);
+    };
+
+    public List<Information> getRecentPrice(String symbol,String type){return informationMapper.getRecentPrice(symbol,type);}
+
+    public void uploadFXrate(String base,String term,double rate,Date date){fxrateMapper.uploadFXrate(base,term,rate,date);};
+
 
     public List<Position> queryForDistinctPositions(){
         return  positionMapper.queryForDistinctPositions();
