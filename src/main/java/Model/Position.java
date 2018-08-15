@@ -22,6 +22,16 @@ public class Position {
 
     private double value;
 
+    private double curValue;
+
+    public double getCurValue() {
+        return curValue;
+    }
+
+    public void setCurValue(double curValue) {
+        this.curValue = curValue;
+    }
+
     private double profit;
     public Position(Integer id, Integer qty, String symbol, double price, String ccy, String type, Integer portfolioid, Date date, double value, double profit) {
         this.id = id;

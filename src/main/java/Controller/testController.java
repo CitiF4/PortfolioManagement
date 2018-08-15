@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Fundmanager;
-import Model.Information;
-import Model.Portfolio;
-import Model.Position;
+import Model.*;
 import Service.AdminService;
 import Service.AdminServiceImpl;
 import Service.FundManagerService;
@@ -42,6 +39,7 @@ public class testController {
     FundManagerService fundmanagerServiceImpl;
 
     @RequestMapping(value = "/test")
+
 //    public ModelAndView test(){
 //
 //
@@ -64,10 +62,16 @@ public class testController {
 //        return modelAndView;
 //    }
 
-    public String test(){
+   public String test(){
         System.out.println("login1111111111111");
         return "login";
     }
+
+
+
+
+
+
 
     @RequestMapping("/getPortfolio/{id}")
     @ResponseBody
