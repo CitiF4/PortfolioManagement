@@ -135,4 +135,7 @@
   <select id="getPortfolio" parameterType="int" resultType="Model.Portfolio">
     select * from portfolio where FMid = #{id}
   </select>
+  <select id="getFundmanagerIdByName" resultType="java.lang.Integer">
+    select id from fundmanager where name = #{name};
+  </select>
 </mapper>

@@ -4207,9 +4207,6 @@ section {
 }
 
 /* ----- Table ----- */
-.table {
-    margin: 0;
-}
 
 .table-responsive.table--no-card {
     -webkit-border-radius: 10px;

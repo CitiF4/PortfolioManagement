@@ -56,7 +56,7 @@
                                 <i class="fas fa-chart-bar"></i>Portfolios</a>
                         </li>
                         <li>
-                            <a href="table.html">
+                            <a href="DisplayInformation.jsp">
                                 <i class="fas fa-table"></i>Information</a>
                         </li>
                     </ul>
@@ -679,10 +679,12 @@
                         <div class="form-group">
                             <label for="portfolio_name">Portfolio Name</label>
                             <input type="text" name="portfolio_name" class="form-control" id="portfolio_name" placeholder="name">
+                            <small class="form-text text-muted">This is required</small>
                         </div>
                         <div class="form-group">
                             <label for="portfolio_cash">Cash</label>
-                            <input type="text" name="portfolio_cash" class="form-control" id="portfolio_cash" placeholder="cash value">
+                            <input type="text" name="portfolio_cash" class="form-control" id="portfolio_cash" placeholder="cash">
+                            <small class="form-text text-muted">This is required</small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -718,40 +720,8 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-    <script>
-        $('#createPortfolio').click(function(){
-            $('#myModal').css('display', 'block');
-            var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
-            $('#myModal').find('.modal-dialog').css({
-                'margin-top': modalHeight
-            });
-            $('#myModal').modal();
-        })
-
-        $('#myModal').on('shown.bs.modal', function (e) {
-            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-            $(this).css('display', 'block');
-            var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
-            $(this).find('.modal-dialog').css({
-                'margin-top': modalHeight
-            });
-        });
-       function submitPorfolio(e){
-           //传portfolio数据给后台
-           $.ajax({
-               type:'POST',
-               url:'/createPortfolio',
-               data:{
-                   portfolioName:$('#portfolio_name').text(),
-                   portfolioCash:$('#portfolio_cash').text()
-               },
-               dataTpe:'json',
-               success:function(){
-                   console.log("create success");
-               }
-           })
-       }
-    </script>
+    <!--common.js-->
+    <script src="js/commonJs.js"></script>
 
 </body>
 

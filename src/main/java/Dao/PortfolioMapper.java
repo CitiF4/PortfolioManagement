@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface PortfolioMapper {
     int createPortfolio(Portfolio p); //insert
-    int createPortfolioByName(@Param("name") String name, @Param("cash") double cash, @Param("fmId") int fmId, @Param("date")Date date);
+    int createPortfolioByName(@Param("name") String name, @Param("cash") double cash,  @Param("initCash") double initCash, @Param("fmId") int fmId, @Param("date")Date date);
 
     int updatePortfolioById(@Param("id")int id,@Param("name")String name);
     //List<Position> queryForPositions(int pId);

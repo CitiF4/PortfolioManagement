@@ -7,6 +7,7 @@ import Service.FundManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class LoginController {
             map.put("curCash",fundmanager.getCurCash());
             map.put("value",fundmanager.getValue());
             map.put("rate",fundmanager.getRate());
+            map.put("initCash",fundmanager.getInitCash());
             list.add(map);
         }
 
@@ -71,7 +73,6 @@ public class LoginController {
 
     @RequestMapping("/getPortfolios")
     @ResponseBody
-
 
     public  List<Map> loginProcessAd(HttpSession httpSession){
 
@@ -82,14 +83,26 @@ public class LoginController {
 
         for(Portfolio portfolio : portfolios){
             Map<String,Object> map = new HashMap<String, Object>();
+            map.put("id", portfolio.getId());
             map.put("name",portfolio.getName());
             map.put("curCash",portfolio.getCurCash());
             map.put("value",portfolio.getValue());
             map.put("rate",portfolio.getRate());
+            map.put("initCash",portfolio.getInitCash());
             list.add(map);
         }
 
         return list;
 
+    }
+
+    @RequestMapping(value = "/toDetailPage",method = RequestMethod.POST)
+    public String getDetail(@RequestParam("id") int id){
+        System.out.println("Details" + id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("portfolios");
+        modelAndView.addObject("id",id);
+//        return modelAndView;
+        return "portfolios";
     }
 }

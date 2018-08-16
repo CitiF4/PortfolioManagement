@@ -36,7 +36,7 @@
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
     <link href="css/custom.css" rel="stylesheet" media="all">
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
 </head>
@@ -46,7 +46,7 @@
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="navbar-header logo">
-            <a class="navbar-brand" href="index.html">FundManager</a>
+            <a class="navbar-brand" href="index.jsp">FundManager</a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
@@ -60,7 +60,7 @@
                             <i class="fas fa-chart-bar"></i>Portfolios</a>
                     </li>
                     <li>
-                        <a href="table.html">
+                        <a href="DisplayInformation.jsp">
                             <i class="fas fa-table"></i>Information</a>
                     </li>
                 </ul>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="row marginTop">
-                <table id="example" class="table">
+                <table id="showTypeInfo" class="table">
                     <thead>
                     <tr>
                         <th>Symbol</th>
@@ -177,55 +177,6 @@
                         <th>Currency</th>
                         <th>Rate</th>
                         <th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    <tr>
-                        <td>Apple</td>
-                        <td>2000</td>
-                        <td>15.6</td>
-                        <td >1.66</td>
-                        <td>2018-09-29 05:57</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table id="grid-data" class="table table-condensed table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th data-column-id="symbol" >Symbol</th>
-                        <th data-column-id="price">Price</th>
-                        <th data-column-id="currency">Currency</th>
-                        <th data-column-id="rate">Rate</th>
-                        <th data-column-id="date">Date</th>
-                        <th data-column-id="price">price</th>
                     </tr>
                     </thead>
                 </table>
@@ -245,17 +196,19 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="txt_departmentname">Portfolio Name</label>
-                    <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="name">
+                    <label for="portfolio_name">Portfolio Name</label>
+                    <input type="text" name="portfolio_name" class="form-control" id="portfolio_name" placeholder="name">
+                    <small class="form-text text-muted">This is required</small>
                 </div>
                 <div class="form-group">
-                    <label for="txt_parentdepartment">Cash</label>
-                    <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="cash value">
+                    <label for="portfolio_cash">Cash</label>
+                    <input type="text" name="portfolio_cash" class="form-control" id="portfolio_cash" placeholder="cash">
+                    <small class="form-text text-muted">This is required</small>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Close</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Submit</button>
             </div>
         </div>
     </div>
@@ -288,74 +241,42 @@
 <!-- Main JS-->
 <script src="js/main.js"></script>
 <script>
-    var dataSet =[
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"],
-        ["Tiger","System Architect","Edinburgh","5421"]
-    ]
+
     $(document).ready(function(){
         showTableData("Bonds");
 
-    }
-//    $(document).ready(function(){
-//        $('#example').DataTable({
-//            data:dataSet,
-//            columns:[
-//                {title:'Symbol'},
-//                {title:'Price'},
-//                {title:'Currency'},
-//                {title:'Date'}
-//            ]
-//        })
-//
-//    })
+    });
     function handleDisplayInformation(e) {
-        console.log("i am clicked");
         var productType = e.getAttribute("id");
-        showTableData(productType)
-
-
+        showTableData(productType);
     }
     function showTableData(type){
-        var grid = $("#grid-data").bootgrid({
-            ajax:true,
-            post: function ()
-            {
-                return {
-                    productType: type,
-                    date:new Date()
-                };
+        var jsonStr = "{listData}";
+        if( $('#showTypeInfo').dataTable()){
+            $('#showTypeInfo').dataTable().fnDestroy();
+        }
+        $('#showTypeInfo').DataTable( {
+            ajax: {
+                url: '/getTypeInformation',
+                type:POST,
+                data:{type:type}
+//                dataSrc: 'staff',
+
             },
-            url:"#",
-            // <%=basePath %>order/orderList
+            data: typeData,
+            columns: [
+                { data: 'symbol' },
+                { data: 'price' },
+                { data: 'currency' },
+                { data: 'rate' },
+                { data: 'date' }
+            ]
+        } );
 
-        })
     }
-</script>
-<script>
-    $('#createPortfolio').click(function(){
-        $('#myModal').css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
-        $('#myModal').find('.modal-dialog').css({
-            'margin-top': modalHeight
-        });
-        $('#myModal').modal();
-    })
-
-    $('#myModal').on('shown.bs.modal', function (e) {
-        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-        $(this).css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
-        $(this).find('.modal-dialog').css({
-            'margin-top': modalHeight
-        });
-    });
-
 
 </script>
+<script src="js/commonJs.js"></script>
 </body>
 
 </html>

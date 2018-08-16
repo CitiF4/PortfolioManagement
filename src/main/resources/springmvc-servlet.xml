@@ -22,7 +22,6 @@
     <!--<mvc:resources location="/WEB-INF/PortfolioViews/vendor" mapping="/vendor/**" />-->
     <!--<mvc:resources location="/WEB-INF/PortfolioViews/images" mapping="/images/**" />-->
     <!--<mvc:resources location="/WEB-INF/PortfolioViews/images/icon" mapping="/icon/**" />-->
-    <!--<mvc:resources location="/resource/" mapping="/resource/**" />-->
 
 
     <!-- configure the InternalResourceViewResolver -->

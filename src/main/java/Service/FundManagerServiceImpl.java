@@ -39,7 +39,9 @@ public class FundManagerServiceImpl implements FundManagerService {
         portfolioMapper.updatePortfolioById(id,name);
     }
 
-    public void createPortfolioByName(String name, double cash, int fmId, Date date){portfolioMapper.createPortfolioByName(name,cash,fmId,new Date());}
+    public void createPortfolioByName(String name, double cash, int fmId, Date date){
+        double initCash = cash;
+        portfolioMapper.createPortfolioByName(name,cash,initCash,fmId,new Date());}
     public List<Position> queryForPositions(int pId){return positionMapper.queryForPositions(pId);}
 
 
@@ -100,21 +102,30 @@ public class FundManagerServiceImpl implements FundManagerService {
             Portfolio portfolioT = portfolioMapper.addPositionByPortId(portfolio.getId());
             portfolio.setPositions(portfolioT.getPositions());
             List<Position> positions = portfolio.getPositions();
+            double currentValue = 0.0;
             double value = 0.0;
             double cash = initCash;
             for(Position position : positions){
                 cash -= position.getValue();
-                value += informationMapper.getRecentPrice(position.getSymbol(),position.getType()).get(0).getPrice()*position.getQty();
+                List<Information> recentPrice = informationMapper.getRecentPrice(position.getSymbol(), position.getType());
+                currentValue += recentPrice.get(0).getPrice()*position.getQty();
+                value += position.getValue();
             }
             portfolio.setValue(value);
+            portfolio.setCurrentValue(currentValue);
             portfolio.setCurCash(cash);
-            portfolio.setRate(value/portfolio.getInitCash());
+            portfolio.setRate((currentValue - value)/portfolio.getInitCash());
 
         }
     }
 
     public List<Portfolio> getPortfolios(int fmid) {
         return fundmanagerMapper.getPortfolio(fmid);
+    }
+
+    public int getFundmanagerIdbyName(String name) {
+
+        return fundmanagerMapper.getFundmanagerIdByName(name);
     }
 
     public List<Information> getInformation(String type) {

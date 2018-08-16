@@ -352,10 +352,13 @@
     </script>
 
     <script>
+        // $('.card').click(function () {
+        //     $(location).attr("href", "fundManager.jsp");
+        // });
 
     function displayFMs(fm) {
         var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">FundManager</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
-        card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ fm.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ fm.initialCash + '<label class="text-sm-center mt-2 mb-1">Total Cash :</label>'+ '<span id="cash">'+ fm.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Total Value :</label> <span id="value">'+ fm.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">Profit Rate :</label> <span id="rate">'+ fm.rate
+        card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ fm.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ fm.initCash + '<label class="text-sm-center mt-2 mb-1">Total Cash :</label>'+ '<span id="cash">'+ fm.curCash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Total Value :</label> <span id="value">'+ fm.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">Profit Rate :</label> <span id="rate">'+ fm.rate
             + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editFM()"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteFM($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
         $(".row").append(card);
     }

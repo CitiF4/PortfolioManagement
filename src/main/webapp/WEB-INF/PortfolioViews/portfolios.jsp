@@ -29,9 +29,11 @@
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="css/custom.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -56,7 +58,7 @@
                             <i class="fas fa-chart-bar"></i>Portfolios</a>
                     </li>
                     <li>
-                        <a href="table.html">
+                        <a href="DisplayInformation.jsp">
                             <i class="fas fa-table"></i>Information</a>
                     </li>
                 </ul>
@@ -140,47 +142,54 @@
                                             <div class="card-body card-block">
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="selectLg" class=" form-control-label">Type</label>
+                                                        <label for="selectType" class=" form-control-label">Type</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <select name="selectLg" id="selectLg" class="form-control-lg form-control"
-                                                                onchange="selectOnchang(this)">
-                                                            <option value="0">Bonds</option>
-                                                            <option value="1">Equity</option>
-                                                            <option value="2">Futures</option>
-                                                            <option value="3">ETFS</option>
+                                                        <select name="selectLg" id="selectType" class="form-control-lg form-control"
+                                                                onchange="selectTypeOnchang(this)">
+                                                            <option value="bonds">Bonds</option>
+                                                            <option value="equity">Equity</option>
+                                                            <option value="futures">Futures</option>
+                                                            <option value="etfs">ETFS</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="select" class=" form-control-label">Company</label>
+                                                        <label for="selectSymbol" class=" form-control-label">Company</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <select name="select" id="select" class="form-control"
-                                                                onchange="selectOnchang(this)">
-                                                            <option value="0">Google</option>
-                                                            <option value="1">Apple</option>
-                                                            <option value="2">Baidu</option>
-                                                            <option value="3">Alibaba</option>
+                                                        <select id="selectSymbol" class="selectpicker form-control"  data-live-search="true"
+                                                        onchange="selectSymbolOnchang(this)">
                                                         </select>
                                                     </div>
+                                                    <!--<div class="col-12 col-md-6">-->
+                                                        <!--<select name="select" id="selectSymbol2" class="form-control"-->
+                                                                <!--onchange="selectOnchang(this)">-->
+                                                            <!--<option value="0">Google</option>-->
+                                                            <!--<option value="1">Apple</option>-->
+                                                            <!--<option value="2">Baidu</option>-->
+                                                            <!--<option value="3">Alibaba</option>-->
+                                                        <!--</select>-->
+                                                    <!--</div>-->
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="text-input" class=" form-control-label">Quitity</label>
+                                                        <label for="quantity-input" class=" form-control-label">Quitity</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
-                                                        <small class="form-text text-muted">input the quitity</small>
+                                                        <input type="number" id="quantity-input" name="text-input"
+                                                               placeholder="quantity" class="form-control" required>
+                                                        <small class="form-text text-muted">This is required</small>
+                                                        <!--<small class="form-text text-muted"></small>-->
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <button type="button" class="btn btn-info">Buy</button>
+                                                    <div class="col marginLeft">
+                                                        <button type="button" class="btn btn-primary" id="buyPosition">Buy</button>
                                                     </div>
-                                                    <div class="col">
-                                                        <button type="button" class="btn btn-info">Sell</button>
+                                                    <div class="col marginRight">
+                                                        <button type="button" class="btn btn-primary" id="sellPosition">Sell</button>
                                                     </div>
                                                 </div>
 
@@ -191,7 +200,7 @@
                                         <!-- CHART PERCENT-->
                                         <div class="card">
                                             <div class="card-header">
-                                                <strong>Line Chart</strong>
+                                                <strong id = "chartDate">line chart</strong>
                                             </div>
                                             <div class="card-body card-block">
                                                 <canvas id="myChart"></canvas>
@@ -204,95 +213,59 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                Portfolio
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                       <span id ="portfolioName"><strong>Portfolio</strong></span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <form class="form-inline" role="form">
+                                                            <div class="form-group">
+                                                                <label class="form-label">curCash</label>
+                                                                <Button id = "curCash" class ="btn btn-info contentPading">20</Button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <form class="form-inline" role="form">
+                                                            <div class="form-group">
+                                                                <label class="form-label">curValue</label>
+                                                                <Button id = "curValue" class ="btn btn-info contentPading">25</Button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <form class="form-inline" role="form">
+                                                            <div class="form-group">
+                                                                <label class="form-label">profit/loss</label>
+                                                                <Button id = "offset" class ="btn btn-info contentPading">5</Button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!--<div class="col-md-2">-->
+                                                        <!--<form class="form-inline" role="form">-->
+                                                            <!--<div class="form-group">-->
+                                                                <!--<label class="form-label">Percentage</label>-->
+                                                                <!--<Button class ="btn btn-info contentPading">20%</Button>-->
+                                                            <!--</div>-->
+                                                        <!--</form>-->
+                                                    <!--</div>-->
+                                                </div>
+
                                             </div>
                                             <div class="card-body">
-                                                <table class="table">
+                                                <table id ="showPositions" class="table">
                                                     <thead>
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Type</th>
                                                         <th>Symbol</th>
+                                                        <th>Type</th>
                                                         <th>Qty</th>
                                                         <th>Price</th>
-                                                        <th>Rate</th>
                                                         <th>Value(USD)</th>
+                                                        <th>CurValue</th>
+                                                        <th>Profit/Loss</th>
+                                                        <th>Date</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Bonds</td>
-                                                        <td>Apple</td>
-                                                        <td >20</td>
-                                                        <td>999.00</td>
-                                                        <td>1.66</td>
-                                                        <td>5000</td>
-                                                    </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -325,17 +298,19 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="txt_departmentname">Portfolio Name</label>
-                        <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="name">
+                        <label for="portfolio_name">Portfolio Name</label>
+                        <input type="text" name="portfolio_name" class="form-control" id="portfolio_name" placeholder="name">
+                        <small class="form-text text-muted">This is required</small>
                     </div>
                     <div class="form-group">
-                        <label for="txt_parentdepartment">Cash</label>
-                        <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="cash value">
+                        <label for="portfolio_cash">Cash</label>
+                        <input type="text" name="portfolio_cash" class="form-control" id="portfolio_cash" placeholder="cash">
+                        <small class="form-text text-muted">This is required</small>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Close</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Save</button>
                 </div>
             </div>
         </div>
@@ -366,55 +341,10 @@
 
 <!-- Main JS-->
 <script src="js/main.js"></script>
-<script>
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line', // line 表示是 曲线图，当然也可以设置其他的图表类型 如柱形图 : bar  或者其他
-        data: {
-            labels : ["January","February","March","April","May","June","July"], //按时间段 可以按星期，按月，按年
-            datasets : [
-                {
-                    label: "123",  //当前数据的说明
-                    fill: true,  //是否要显示数据部分阴影面积块  false:不显示
-                    borderColor: "rgba(200,187,205,1)",//数据曲线颜色
-                    pointBackgroundColor: "#fff", //数据点的颜色
-                    data: [80, 90, 100, 30, 67, 59, 88],  //填充的数据
-                },
-                {
-                    label: "456",  //当前数据的说明
-                    fill: true,  //是否要显示数据部分阴影面积块  false:不显示
-                    borderColor: "rgba(75,192,192,1)",//数据曲线颜色
-                    pointBackgroundColor: "#fff", //数据点的颜色
-                    data: [21, 34, 35, 50, 45, 21, 70],  //填充的数据
-                }
-            ]
-        }
-    });
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="js/portfolioJs.js"></script>
+<script src="js/commonJs.js"></script>
 
-    $('#createPortfolio').click(function(){
-        $('#myModal').css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
-        $('#myModal').find('.modal-dialog').css({
-            'margin-top': modalHeight
-        });
-        $('#myModal').modal();
-    })
-
-    $('#myModal').on('shown.bs.modal', function (e) {
-        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-        $(this).css('display', 'block');
-        var modalHeight = $(window).height() / 2 - $('#myModel .modal-dialog').height() / 2;
-        $(this).find('.modal-dialog').css({
-            'margin-top': modalHeight
-        });
-    });
-    function selectOnchang(e){
-        e.options[ e.selectedIndex].grade;
-    }
-
-
-
-</script>
 </body>
 
 </html>

@@ -30,6 +30,7 @@ public interface FundManagerService {
     List<Information> getInformation(String type, Date date);
     void getPortShowInfo(List<Portfolio> portfolios);
     List<Portfolio> getPortfolios(int fid);
+    int getFundmanagerIdbyName(String name);
 //    sort,filter,top,tail datasets
 //    top,worst performing funds
 
