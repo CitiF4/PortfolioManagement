@@ -24,6 +24,10 @@
   <select id="getFxRates" resultType="Model.Fxrate">
     SELECT * FROM fxrate
   </select>
+  <select id="getRateForSpecifiedCCY" resultType="Model.Fxrate">
+    SELECT * FROM fxrate WHERE base=#{ccy} order by date desc LIMIT 0,1
+  </select>
+
 
   <insert id="uploadFXrate" parameterType="Model.Fxrate">
     insert into fxrate (base,term,rate,date)

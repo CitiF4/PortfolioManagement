@@ -11,6 +11,8 @@ public interface InformationMapper {
 
    // List<Information> queryForInformation(String type, String date);
 
+
+
    List<Information> getInformationOfSameType(String type);
     int deleteInformation(int infoId);
     int updateInformation(Information info);

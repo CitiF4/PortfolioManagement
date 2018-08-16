@@ -68,7 +68,17 @@ public class testController {
 
     public String test() {
 
+        List<Portfolio> pfList = adminServiceImpl.getPortfolios();
+        for (Portfolio p: pfList
+        ) {
+            p.setRate(p.getCurCash()/p.getInitCash());
+        }
 
+        adminServiceImpl.sortPortfolio(pfList);
+        for (Portfolio p: pfList
+        ) {
+            System.out.println(p.getRate());
+        }
         System.out.println("login1111111111111");
         return "login";
     }

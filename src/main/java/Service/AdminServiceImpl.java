@@ -48,7 +48,8 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
-
+    public List<Fxrate> getRateForSpecifiedCCY(String ccy){return fxrateMapper.getRateForSpecifiedCCY(ccy);}
+    public void updatePortfolioFmId(Portfolio p){portfolioMapper.updatePortfolio(p);}
 
     public List<Fxrate> queryForDistinctFXrate(){
         return fxrateMapper.queryForDistinctFXrate();
