@@ -20,7 +20,8 @@ public interface AdminService {
     //admin view the distinct list of positions
     List<Information> queryForDistinctPositions();
 
-
+    List<Fxrate> getRateForSpecifiedCCY(String ccy);
+    void updatePortfolioFmId(Portfolio p);
 
     boolean validateAdmin(String name);
 

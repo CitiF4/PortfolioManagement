@@ -13,6 +13,7 @@ public interface FxrateMapper {
     void updateFxRate(Fxrate fxrate);
     List<Fxrate> getFxRates();
 
+    List<Fxrate> getRateForSpecifiedCCY(@Param("ccy") String ccy);
 
     void uploadFXrate(@Param("base")String base,@Param("term")String term,@Param("rate")double rate,@Param("date")Date date);
     List<Fxrate> queryForDistinctFXrate();
