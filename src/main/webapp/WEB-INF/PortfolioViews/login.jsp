@@ -45,7 +45,7 @@
                             <h3>Fund Management</h3>
                         </div>
                         <div class="login-form">
-                            <form action="/login" method="post">
+                            <form action="http://localhost:8080/login" method="post">
                                 <div class="form-group">
                                     <input id="admin" type="radio" name="type" checked="checked" value="admin">Admin
                                     <input id="fundManager" type="radio" name="type" value="fundManager">FundManager

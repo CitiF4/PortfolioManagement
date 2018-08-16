@@ -13,26 +13,26 @@
     <title>Dashboard</title>
 
     <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="css/custom.css" rel="stylesheet" media="all">
+    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="/css/custom.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="/css/theme.css" rel="stylesheet" media="all">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
@@ -50,16 +50,16 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li class="active has-sub">
-                        <a  id= "createPortfolio" class="js-arrow" href="#">
+                        <a id = "create" class="js-arrow" >
                             <i class="fas fa-tachometer-alt"></i>Create</a>
                     </li>
                     <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Portfolios</a>
+                        <a id = "information" onclick="handleNavbar(this)">
+                            <i class="fas fa-chart-bar"></i>Information</a>
                     </li>
                     <li>
-                        <a href="DisplayInformation.jsp">
-                            <i class="fas fa-table"></i>Information</a>
+                        <a id = "report" href="#" onclick="handleNavbar(this)">
+                            <i class="fas fa-table"></i>Report</a>
                     </li>
                 </ul>
             </nav>
@@ -146,21 +146,21 @@
                                                     </div>
                                                     <div class="col-12 col-md-6">
                                                         <select name="selectLg" id="selectType" class="form-control-lg form-control"
-                                                                onchange="selectTypeOnchang(this)">
+                                                                onchange="selectTypeOnchange(this)">
                                                             <option value="bonds">Bonds</option>
-                                                            <option value="equity">Equity</option>
-                                                            <option value="futures">Futures</option>
+                                                            <option value="equities">Equities</option>
+                                                            <option value="Futures">Futures</option>
                                                             <option value="etfs">ETFS</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="selectSymbol" class=" form-control-label">Company</label>
+                                                        <label for="selectSymbol" class=" form-control-label">Symbol</label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
                                                         <select id="selectSymbol" class="selectpicker form-control"  data-live-search="true"
-                                                        onchange="selectSymbolOnchang(this)">
+                                                        onchange="selectSymbolOnchange(this)">
                                                         </select>
                                                     </div>
                                                     <!--<div class="col-12 col-md-6">-->
@@ -319,31 +319,111 @@
 </div>
 
 <!-- Jquery JS-->
-<script src="vendor/jquery-3.2.1.min.js"></script>
+<script src="/vendor/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap JS-->
-<script src="vendor/bootstrap-4.1/popper.min.js"></script>
-<script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<script src="/vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
 <!-- Vendor JS       -->
-<script src="vendor/slick/slick.min.js">
+<script src="/vendor/slick/slick.min.js">
 </script>
-<script src="vendor/wow/wow.min.js"></script>
-<script src="vendor/animsition/animsition.min.js"></script>
-<script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+<script src="/vendor/wow/wow.min.js"></script>
+<script src="/vendor/animsition/animsition.min.js"></script>
+<script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
 </script>
-<script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-<script src="vendor/counter-up/jquery.counterup.min.js">
+<script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="/vendor/counter-up/jquery.counterup.min.js">
 </script>
-<script src="vendor/circle-progress/circle-progress.min.js"></script>
-<script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="vendor/chartjs/Chart.bundle.min.js"></script>
-<script src="vendor/select2/select2.min.js">
+<script src="/vendor/circle-progress/circle-progress.min.js"></script>
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="/vendor/select2/select2.min.js">
 </script>
 
 <!-- Main JS-->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="js/portfolioJs.js"></script>
-<script src="js/commonJs.js"></script>
+<script src="/js/portfolioJs.js"></script>
+<script src="/js/commonJs.js"></script>
+<script>
+    var portfolioId = '${id}';
+    $(document).ready(function() {
+        console.log("i am in detail page");
+        var date = new Date();
+        month = date.getMonth() + 1;
+        var dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
+        $('#chartDate')[0].innerText = dateStr;
+        var url = '${url}';
+        $.ajax({
+            url:url,
+            dataType:"json",
+            type:'GET',
+            success:function(response){
+                console.log(response);
+                showPositions(response);//这里展示position和渲染图表
+                var labelData = [];
+                var data = [];
+                var information = response.information;
+                for(var i = 0; i < information.length; i++){
+                    labelData.push(information[i].date);
+                    data.push(information[i].price);
+                }
+                console.log(labelData);
+                showChart(labelData,data);
+            }
+        })
+    });
+    $("#buyPosition").click(function(){
+        if($("#quantity-input")[0].value == ""){
+            $("#quantity-input")[0].focus();
+        }
+        var qty = $("#quantity-input")[0].value;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        $.ajax({
+            url:"/buyProduct",
+            type:"POST",
+            dataType:"json",
+            data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
+            success:function(response){
+                console.log(response);
+                if(Object.keys(response).length == 0){
+                    alert("can't buy the product")
+                }
+                else{
+                    showPositions(response)
+                }
+            },
+            error:function(){
+                console.log("fail");
+            }
+        })
+
+
+    })
+    $("#sellPosition").click(function(){
+        var qty = $("#quantity-input").innerText;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        if($("#quantity-input")[0].value == ""){
+            $("#quantity-input")[0].focus();
+        }
+        $.ajax({
+            url:"/sellProduct",
+            type:"POST",
+            dataType:"json",
+            data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
+            success:function(response){
+                if(response == "no"){
+                    alert("can't sell the product")
+                }
+                else{
+                    showPositions(response)
+                }
+            }
+        })
+
+    })
+</script>
 
 </body>
 

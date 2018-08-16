@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by mandy on 2018/8/11.
@@ -136,6 +135,16 @@ public class FundManagerServiceImpl implements FundManagerService {
     public int getFundmanagerIdbyName(String name) {
 
         return fundmanagerMapper.getFundmanagerIdByName(name);
+    }
+
+    public Set<String> getSymbolsByType(String type) {
+        List<Information> informations = informationMapper.getInformationOfSameType(type);
+        Set<String> symbols = new HashSet<String>();
+        for(Information information : informations){
+            symbols.add(information.getSymbol());
+        }
+
+        return symbols;
     }
 
     public List<Information> getInformation(String type) {

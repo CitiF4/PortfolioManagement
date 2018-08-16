@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dong on 2018/8/10.
@@ -38,6 +39,7 @@ public interface FundManagerService {
     void getPortShowInfo(List<Portfolio> portfolios);
     List<Portfolio> getPortfolios(int fid);
     int getFundmanagerIdbyName(String name);
+    Set<String> getSymbolsByType(String type);
 //    sort,filter,top,tail datasets
 //    top,worst performing funds
 

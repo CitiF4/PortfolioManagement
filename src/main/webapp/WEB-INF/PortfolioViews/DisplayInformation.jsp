@@ -52,16 +52,16 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li class="active has-sub">
-                        <a  id= "createPortfolio" class="js-arrow" href="#">
+                        <a id = "create" class="js-arrow" >
                             <i class="fas fa-tachometer-alt"></i>Create</a>
                     </li>
                     <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Portfolios</a>
+                        <a id = "information" onclick="handleNavbar(this)">
+                            <i class="fas fa-chart-bar"></i>Information</a>
                     </li>
                     <li>
-                        <a href="DisplayInformation.jsp">
-                            <i class="fas fa-table"></i>Information</a>
+                        <a id = "report" href="#" onclick="handleNavbar(this)">
+                            <i class="fas fa-table"></i>Report</a>
                     </li>
                 </ul>
             </nav>
@@ -134,23 +134,23 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a id ="bonds" onclick="handleDisplayInformation(this)">
+                                <a id ="bonds" href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-tachometer-alt"></i>Bonds
                                     <span class="bot-line"></span>
                                 </a>
                             </li>
                             <li>
-                                <a id ="equities" onclick="handleDisplayInformation(this)">
+                                <a id ="equities"  href = "#"  onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Equity</a>
                             </li>
                             <li>
-                                <a id="futures" onclick="handleDisplayInformation(this)">
+                                <a id="futures"  href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-trophy"></i>
                                     <span class="bot-line"></span>Futures</a>
                             </li>
                             <li >
-                                <a id="etfs" onclick="handleDisplayInformation(this)">
+                                <a id="etfs"  href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-copy"></i>
                                     <span class="bot-line"></span>ETFS</a>
                             </li>

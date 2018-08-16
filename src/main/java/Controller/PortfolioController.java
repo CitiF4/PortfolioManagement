@@ -106,7 +106,6 @@ public class PortfolioController {
     }
 
     @RequestMapping(value="queryForDistinctPositionsAndFXrate")
-    @ResponseBody
     public Map<String,Object>queryForDistinctPositionsAndFXrate(HttpServletRequest request){
 
         List<Information> psList = adminServiceImpl.queryForDistinctPositions();
@@ -149,15 +148,12 @@ public class PortfolioController {
     //买入position
     @RequestMapping(value = "buyProduct")
     @ResponseBody
-    public Object buyProduct(HttpServletRequest request){
+    public Map<String, Object> buyProduct(HttpServletRequest request){
+        Map<String,Object> map = new HashMap<String, Object>();
         String symbol = request.getParameter("symbol");
         int qty = Integer.parseInt(request.getParameter("qty"));
         String type = request.getParameter("type");
-        int pID = Integer.parseInt(request.getParameter("portfolioID"));
-
-        /*String ccy = "";
-       */
-
+        int pID = Integer.parseInt(request.getParameter("portfolioId"));
         double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
         List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
         double price = infos.get(0).getPrice();
@@ -178,7 +174,7 @@ public class PortfolioController {
         double neededCash = price*qty*rate;
 
         if (cash<neededCash){
-            return "no";
+            return map;
         }else {
             Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
             pf.setCurCash(cash-neededCash);
@@ -195,9 +191,7 @@ public class PortfolioController {
             ps.setValue(qty*price*rate);
             ps.setProfit(0);
             fundmanagerServiceImpl.createPositionWithoutID(ps);
-
-
-            Map<String,Object> map = queryForPortfolioPosition_InnerMethod(pID);
+            map = queryForPortfolioPosition_InnerMethod(pID);
             return map;
         }
     }
@@ -205,14 +199,13 @@ public class PortfolioController {
 
 
 
-    @RequestMapping(value = "/queryForPortfolioPosition")
+    @RequestMapping(value = "/queryForPortfolioPosition/{id}")
     @ResponseBody
-    public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
-        int portfolioID = Integer.parseInt(request.getParameter("portfolioID"));
+    public Map<String,Object> queryForPortfolioPosition(@PathVariable("id") int id){
         DecimalFormat df = new DecimalFormat("0.00%");
         double valueOfPositions = 0.0;
-        Portfolio pf = fundmanagerServiceImpl.getPortfolio(portfolioID);
-        List<Position> ps = fundmanagerServiceImpl.queryForPositions(portfolioID);
+        Portfolio pf = fundmanagerServiceImpl.getPortfolio(id);
+        List<Position> ps = fundmanagerServiceImpl.queryForPositions(id);
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("portfolioName",pf.getName());
         map.put("initCash",pf.getInitCash());
@@ -231,6 +224,7 @@ public class PortfolioController {
         map.put("profit",valueOfPositions+pf.getCurCash()-pf.getCurCash());
         map.put("rateOfProfit",df.format((valueOfPositions+pf.getCurCash()-pf.getCurCash())/pf.getCurCash()));
         map.put("positions",ps);
+        map.put("id",pf.getId());
 
 
         List<Information> randomInforms = adminServiceImpl.getRecentPrice(ps.get(0).getSymbol(),ps.get(0).getType());
@@ -275,7 +269,7 @@ public class PortfolioController {
     @RequestMapping(value = "sellProduct")
     @ResponseBody
     public Object sellProduct(HttpServletRequest request){
-        int pID = Integer.parseInt(request.getParameter("portfolioID"));
+        int pID = Integer.parseInt(request.getParameter("portfolioId"));
         String symbol = request.getParameter("symbol");
         int sellQty = Integer.parseInt(request.getParameter("qty"));
         String type = request.getParameter("type");
@@ -382,10 +376,21 @@ public class PortfolioController {
         return map;
     }
 
+    @RequestMapping(value = "getRecentPrice")
+    @ResponseBody
+    public Map<String,Object> getREecentPrice(HttpServletRequest request){
+        String symbol = request.getParameter("symbol");
+        String type = request.getParameter("type");
+        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("recentPrice",infos);
+        return  map;
+    }
+
     // admin删除FM
     @RequestMapping(value = "fireFundManager")
-    public void fireFundManager(HttpServletRequest request){
-
+    public void fireFundManager(HttpServletRequest request) {
 
 
         int fmId = Integer.parseInt(request.getParameter("id"));
@@ -393,34 +398,30 @@ public class PortfolioController {
         adminServiceImpl.deleteFm(fmId);
 
         //将所有position中所有的剩余价值取出来相加得总价值
-        for (Portfolio pf: pfList
-             ) {
-            double valueInPosition=0.0;
+        for (Portfolio pf : pfList
+                ) {
+            double valueInPosition = 0.0;
             List<Position> psList = fundmanagerServiceImpl.queryForPositions(pf.getId());
-            for(Position ps:psList){
-                valueInPosition+=ps.getValue()+ps.getProfit();
+            for (Position ps : psList) {
+                valueInPosition += ps.getValue() + ps.getProfit();
             }
             pf.setCurCash(pf.getCurCash()+valueInPosition);
         }
+        for (Portfolio pf : pfList
+                    ) {
+                pf.setRate(pf.getCurCash() / pf.getInitCash());
+            }
 
-        for (Portfolio pf: pfList
-             ) {
-            pf.setRate(pf.getCurCash()/pf.getInitCash());
-        }
+            adminServiceImpl.sortPortfolio(pfList);
 
-        adminServiceImpl.sortPortfolio(pfList);
+            //赚钱比率最高的portfolio
+            Portfolio pf = pfList.get(0);
 
-        //赚钱比率最高的portfolio
-        Portfolio pf = pfList.get(0);
-
-        for (Portfolio p: pfList
-             ) {
-            p.setFmid(pf.getFmid());
-            adminServiceImpl.updatePortfolioFmId(p);
-        }
-
-        //Map<String,Object> map = new HashMap<String, Object>();
-
+            for (Portfolio p : pfList
+                    ) {
+                p.setFmid(pf.getFmid());
+                adminServiceImpl.updatePortfolioFmId(p);
+            }
     }
 
 
@@ -428,14 +429,16 @@ public class PortfolioController {
 
 
 
+    @RequestMapping("/getSymbols")
+    @ResponseBody
+    public Map<String,Set> getSymbols(@RequestParam("type") String type){
+        Map<String,Set> map = new HashMap<String, Set>();
+        Set<String> set = fundmanagerServiceImpl.getSymbolsByType(type);
+        map.put("symbol",set);
+        return map;
+    }
 
 
-    /*private boolean purchaseJudge(double cash,int qty,String symbol,String type){
-        double neededCash = adminServiceImpl.getRecentPrice(symbol,type).get(0).getPrice()*qty;
-        if (cash>=neededCash){
-            return true;
-        }else {
-            return false;
-        }
-    }*/
+
+
 }

@@ -49,15 +49,15 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
-                            <a id = "createPortfolio" class="js-arrow" href="fundManager.jsp" >
+                            <a id = "create" href = "#" class="js-arrow" >
                                 <i class="fas fa-tachometer-alt"></i>Create</a>
                         </li>
                         <li>
-                            <a href="DisplayInformation.jsp">
+                            <a id = "information"  href = "/toDisplayInformation" >
                                 <i class="fas fa-chart-bar"></i>Information</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a id = "report"  href = "/toFundmanagerReport"  >
                                 <i class="fas fa-table"></i>Report</a>
                         </li>
                     </ul>
@@ -224,7 +224,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: "/getPortfolios",
+                url: "http://localhost:8080/getPortfolios",
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -241,15 +241,9 @@
         function displayPortfolios(portfolio) {
             var card = '<div class="col-md-4"> <div class="card" > <div class="card-header"> <strong class="card-title mb-3">Portfolio</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
             card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ portfolio.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ portfolio.initCash + '<br><label class="text-sm-center mt-2 mb-1">Cash :</label>'+ '<span id="cash">'+ portfolio.curCash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Value :</label> <span id="value">'+ portfolio.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">ProfitRate :</label> <span id="rate">'+ portfolio.rate
-                + '</span> </div> <hr> <div class="table-data-feature">' +
-                '<form action=""  method="post" >'+
-                '<input type="text  name="id" >'+
-                 '<input type="submit">'
-
-                '<h5 id="id" style="display: none">'+ portfolio.id + '</h5><button onclick="displayPortfolio(this)" type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" > <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deletePortfolio($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
+                + '</span> </div> <hr> <div class="table-data-feature">' + '<h5 id="id" style="display: none">'+ portfolio.id + '</h5><button onclick="displayPortfolio(this)" type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" > <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deletePortfolio($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
             $(".row").append(card);
         }
-
         function deletePortfolio(e) {
             var id = e.previousSibling.innerText;
             $.ajax({
@@ -270,17 +264,19 @@
         }
         function displayPortfolio(e){
              var id = e.previousSibling.innerText;
-             $.ajax({
-                 url:"/toDetailPage",
-                 type:"POST",
-                 data:{"id":id},
-
-                 success:function(){
-                     window.location.href = "portfolios.jsp";
-
-                 }
-
-             });
+             window.location.href = "/toDetailPage/" + id;
+             console.log(id);
+//             $.ajax({
+//                 url:"http://localhost:8080/toDetailPage",
+//                 type:"POST",
+//                 data:{"id":id},
+//
+//                 success:function(){
+//
+//
+//                 }
+//
+//             });
         }
         function submitPorfolio(e){
             if($("#portfolio_name")[0].value == "" ){
@@ -293,7 +289,7 @@
                 //传portfolio数据给后台
                 $.ajax({
                     type:'POST',
-                    url:'/createPortfolio',
+                    url:'http://localhost:8080/createPortfolio',
                     data:{
                         portfolioName: $('#portfolio_name')[0].value,
                         portfolioCash:$('#portfolio_cash')[0].value
