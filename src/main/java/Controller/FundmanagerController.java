@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -47,14 +48,15 @@ public class FundmanagerController {
 
     @RequestMapping(value = "/getTopTenAndWorst",method = RequestMethod.GET)
     @ResponseBody
-    public List<Map> getTopAndWorst (@RequestParam (value = "type") String type){
+    public List<Map> getTopAndWorst (HttpSession httpSession){
+        String name = httpSession.getAttribute("name").toString();
         List<Map> list = new ArrayList<Map>();
-        List<Portfolio> portfolios = adminServiceImpl.getPortfolios();
+        List<Portfolio> portfolios = fundManagerServiceImpl.getPortfoliosByName(name);
         fundManagerServiceImpl.getPortShowInfo(portfolios);
         adminServiceImpl.sortPortfolio(portfolios);
 
         for(int i = 0; i < portfolios.size(); i++){
-            if(i<10 && i == portfolios.size() - 1){
+            if(i<10 || i == portfolios.size() - 1){
                 Map<String,Object> map = new HashMap<String, Object>();
                 map.put("name",portfolios.get(i).getName());
                 map.put("curCash", portfolios.get(i).getCurCash());
@@ -67,6 +69,15 @@ public class FundmanagerController {
         }
         return list;
 
+    }
+    @RequestMapping(value = "/toDisplayInformation",method = RequestMethod.GET)
+    public String toDisplayInformation(){
+        return "DisplayInformation";
+    }
+
+    @RequestMapping(value = "/toFundmanagerReport",method = RequestMethod.GET)
+    public String toFundmanagerReport(){
+        return "fundManageReport";
     }
 
 }

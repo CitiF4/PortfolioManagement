@@ -96,13 +96,17 @@ public class LoginController {
 
     }
 
-    @RequestMapping(value = "/toDetailPage",method = RequestMethod.POST)
-    public String getDetail(@RequestParam("id") int id){
+    @RequestMapping(value = "/toDetailPage/{id}",method = RequestMethod.GET)
+    public ModelAndView getDetail(@PathVariable("id") int id,HttpSession httpSession){
+        httpSession.setAttribute("id",id);
         System.out.println("Details" + id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("portfolios");
         modelAndView.addObject("id",id);
-//        return modelAndView;
-        return "portfolios";
+        modelAndView.addObject("url","/queryForPortfolioPosition/" + id);
+        return modelAndView;
     }
+
+
+
 }

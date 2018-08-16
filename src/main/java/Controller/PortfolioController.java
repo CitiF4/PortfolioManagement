@@ -125,17 +125,16 @@ public class PortfolioController {
 
 
 
-    @RequestMapping(value = "/queryForPortfolioPosition")
+    @RequestMapping(value = "/queryForPortfolioPosition/{id}")
     @ResponseBody
-    public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
-        int i = Integer.parseInt(request.getParameter("portfolioID"));
+    public Map<String,Object> queryForPortfolioPosition(@PathVariable("id") int id){
         DecimalFormat df = new DecimalFormat("0.00%");
         double valueOfPositions = 0.0;
-        Portfolio pf = fundmanagerServiceImpl.getPortfolio(i);
-        List<Position> ps = fundmanagerServiceImpl.queryForPositions(i);
+        Portfolio pf = fundmanagerServiceImpl.getPortfolio(id);
+        List<Position> ps = fundmanagerServiceImpl.queryForPositions(id);
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("portfolioName",pf.getName());
-        map.put("initCash",pf.getCurCash());
+        map.put("initCash",pf.getInitCash());
         map.put("restCash",pf.getCurCash());
 
         for (Position pst: ps) {
@@ -211,8 +210,17 @@ public class PortfolioController {
         }
 
     }
+    @RequestMapping(value = "getRecentPrice")
+    @ResponseBody
+    public Map<String,Object> getREecentPrice(HttpServletRequest request){
+        String symbol = request.getParameter("symbol");
+        String type = request.getParameter("type");
+        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
 
-
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("recentPrice",infos);
+        return  map;
+    }
 
 
     public Map<String,Object> fireFundManager(HttpServletRequest request){
@@ -225,11 +233,12 @@ public class PortfolioController {
     }
 
     @RequestMapping(value = "buyProduct")
+    @ResponseBody
     public String buyProduct(HttpServletRequest request){
         String symbol = request.getParameter("symbol");
         int qty = Integer.parseInt(request.getParameter("qty"));
         String type = request.getParameter("type");
-        int pID = Integer.parseInt(request.getParameter("portfolioID"));
+        int pID = Integer.parseInt(request.getParameter("portfolioId"));
 
         double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
         List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
@@ -257,8 +266,42 @@ public class PortfolioController {
             fundmanagerServiceImpl.createPositionWithoutID(ps);
             return "yes";
         }
+        /*DecimalFormat df = new DecimalFormat("0.00%");
+        double valueOfPositions = 0.0;
+        Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
+        List<Position> ps = fundmanagerServiceImpl.queryForPositions(pID);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("portfolioName",pf.getName());
+        map.put("initCash",pf.getInitCash());
+        map.put("restCash",pf.getCurCash());
+
+        for (Position pst: ps) {
+            List<Information> infoList = adminServiceImpl.getRecentPrice(pst.getSymbol(),pst.getType());
+            valueOfPositions+=pst.getQty()*infoList.get(0).getPrice();
+
+            double value = pst.getValue();
+            double curValue =pst.getQty()*infoList.get(0).getPrice();
+            pst.setCurValue(curValue);
+            pst.setProfit(curValue-value);
+        }
+        map.put("totalValue",valueOfPositions+pf.getCurCash());
+        map.put("profit",valueOfPositions+pf.getCurCash()-pf.getCurCash());
+        map.put("rateOfProfit",df.format((valueOfPositions+pf.getCurCash()-pf.getCurCash())/pf.getCurCash()));
+        map.put("positions",ps);
+
+
+        List<Information> randomInforms = adminServiceImpl.getRecentPrice(ps.get(0).getSymbol(),ps.get(0).getType());
+        map.put("information",randomInforms);*/
     }
 
+    @RequestMapping("/getSymbols")
+    @ResponseBody
+    public Map<String,Set> getSymbols(@RequestParam("type") String type){
+        Map<String,Set> map = new HashMap<String, Set>();
+        Set<String> set = fundmanagerServiceImpl.getSymbolsByType(type);
+        map.put("symbol",set);
+        return map;
+    }
 
 
 

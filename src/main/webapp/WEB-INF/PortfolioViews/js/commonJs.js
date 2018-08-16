@@ -1,7 +1,8 @@
 /**
  * Created by Dong on 2018/8/15.
  */
-$('#createPortfolio').click(function(){
+$('#create').click(function(){
+    console.log("i am click");
     $('#myModal').css('display', 'block');
     var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
     $('#myModal').find('.modal-dialog').css({

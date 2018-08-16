@@ -17,4 +17,5 @@ public interface FundmanagerMapper {
     Fundmanager addPorfolioByfmId(int fmid);//set fundmanager.setPorfolioList()
     List<Portfolio> getPortfolio(int fmid);
     int getFundmanagerIdByName(String name);
+
 }

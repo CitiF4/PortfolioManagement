@@ -156,28 +156,6 @@
                                                <th>Symbol</th>
                                                <th>profitRate</th>
                                             </thead>
-                                            <!--<tbody>-->
-                                            <!--<tr>-->
-                                                <!--<td>1. Australia</td>-->
-                                                <!--<td>$70,261.65</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr>-->
-                                                <!--<td>2. United Kingdom</td>-->
-                                                <!--<td>$46,399.22</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr>-->
-                                                <!--<td>3. Turkey</td>-->
-                                                <!--<td>$35,364.90</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr>-->
-                                                <!--<td>4. Germany</td>-->
-                                                <!--<td>$20,366.96</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr>-->
-                                                <!--<td>5. France</td>-->
-                                                <!--<td>$10,366.96</td>-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
                                         </table>
                                     </div>
                                 </div>
@@ -312,7 +290,35 @@
 <!--common.js-->
 <script src="js/commonJs.js"></script>
 <script src="js/reportJs.js"></script>
+<script>
 
+    $(document).ready(function() {
+        $.ajax({
+            type:"GET",
+            url:"/getTopTenAndWorst",   //以及最坏的portfolio
+            dataType:"json",
+            success:function(response){
+                console.log(response);
+                var labelData = [];
+                var data = [];
+                for(var i = 0; i < response.length-1 ;i++){
+                    labelData.push(response[i].portfolioName);
+                    data.push(response[i].rate);
+                }
+                var topTenData = response.slice(0,response.length-1);
+                createChart(labelData,data);
+                showTopTable(topTenData);
+                var bestAndWorsest = {
+                    best:topTenData[0],
+                    worsest:response[response.length -1]};
+                showBestAndWorsest(bestAndWorsest);
+            },
+            error:function(){
+                console.log("fail");
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

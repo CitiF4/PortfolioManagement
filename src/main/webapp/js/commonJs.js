@@ -1,7 +1,7 @@
 /**
  * Created by Dong on 2018/8/15.
  */
-$('#createPortfolio').click(function(){
+$('#create').click(function(){
     $('#myModal').css('display', 'block');
     var modalHeight = $(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
     $('#myModal').find('.modal-dialog').css({
@@ -18,4 +18,5 @@ $('#myModal').on('shown.bs.modal', function (e) {
         'margin-top': modalHeight
     });
 });
+
 

@@ -52,16 +52,16 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li class="active has-sub">
-                        <a  id= "createPortfolio" class="js-arrow" href="#">
+                        <a id = "create" class="js-arrow" >
                             <i class="fas fa-tachometer-alt"></i>Create</a>
                     </li>
                     <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Portfolios</a>
+                        <a id = "information" onclick="handleNavbar(this)">
+                            <i class="fas fa-chart-bar"></i>Information</a>
                     </li>
                     <li>
-                        <a href="DisplayInformation.jsp">
-                            <i class="fas fa-table"></i>Information</a>
+                        <a id = "report" href="#" onclick="handleNavbar(this)">
+                            <i class="fas fa-table"></i>Report</a>
                     </li>
                 </ul>
             </nav>

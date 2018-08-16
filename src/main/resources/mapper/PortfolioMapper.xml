@@ -101,7 +101,7 @@
     UPDATE portfolio
     <set>
       <if test="name != null">name = #{name}</if>,
-      <if test="cash != null">cash = #{cash}</if>,
+      <if test="cash != null">cash = #{curCash}</if>,
       <if test ="date != null">date = #{date}</if>,
       <if test="fmid != null">fmid = #{fmid}</if>,
       <if test="initCash != null">initCash = #{initCash}</if>

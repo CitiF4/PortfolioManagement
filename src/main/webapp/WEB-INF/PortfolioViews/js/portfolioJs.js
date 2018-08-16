@@ -121,7 +121,8 @@ function selectTypeOnchange(e){
           }
       })
 }
-function selectSymbolOnchang(e){
+function selectSymbolOnchange(e){
+    console.log("symbol has been selected");
     var symbol = $('#selectSymbol').find("option:selected").attr("value");
     var type = $('#selectType').find("option:selected").attr("value");
 //        根据symbol去请求近期的数据
