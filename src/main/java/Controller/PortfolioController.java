@@ -30,6 +30,31 @@ public class PortfolioController {
     AdminService adminServiceImpl;
 
 
+    @RequestMapping(value = "/createFundmanager", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map> createFundmanager(HttpServletRequest request){
+        String name = request.getParameter("name");
+
+        adminServiceImpl.createFundManagerByName(name);
+        int fmId = fundmanagerServiceImpl.getFundmanagerIdbyName(name);
+        Fundmanager fm = new Fundmanager(fmId,name);
+        List<Fundmanager> fmlist = new ArrayList<Fundmanager>();
+        fmlist.add(fm);
+        adminServiceImpl.getFmShowInfo(fmlist);
+        List<Map> resultlist = new ArrayList<Map>();
+        for(Fundmanager fundmanager : fmlist){
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("name",fundmanager.getName());
+            map.put("curCash",fundmanager.getCurCash());
+            map.put("value",fundmanager.getValue());
+            map.put("rate",fundmanager.getRate());
+            map.put("initCash",fundmanager.getInitCash());
+            resultlist.add(map);
+        }
+        return resultlist;
+
+    }
+
     @RequestMapping(value = "/createPortfolio", method = RequestMethod.POST)
     @ResponseBody
     public List<Portfolio> createPortfolio(HttpServletRequest request, HttpSession httpSession){
@@ -81,6 +106,7 @@ public class PortfolioController {
     }
 
     @RequestMapping(value="queryForDistinctPositionsAndFXrate")
+    @ResponseBody
     public Map<String,Object>queryForDistinctPositionsAndFXrate(HttpServletRequest request){
 
         List<Information> psList = adminServiceImpl.queryForDistinctPositions();
@@ -122,6 +148,7 @@ public class PortfolioController {
 
     //买入position
     @RequestMapping(value = "buyProduct")
+    @ResponseBody
     public Object buyProduct(HttpServletRequest request){
         String symbol = request.getParameter("symbol");
         int qty = Integer.parseInt(request.getParameter("qty"));
@@ -246,6 +273,7 @@ public class PortfolioController {
 
     //卖出position
     @RequestMapping(value = "sellProduct")
+    @ResponseBody
     public Object sellProduct(HttpServletRequest request){
         int pID = Integer.parseInt(request.getParameter("portfolioID"));
         String symbol = request.getParameter("symbol");
@@ -316,8 +344,9 @@ public class PortfolioController {
 
    // admin 生成报告
     @RequestMapping(value = "generateReport")
+    @ResponseBody
     public Map<String,Object> generateReport(HttpServletRequest request){
-
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++=");
         List<Portfolio> pfList = adminServiceImpl.getPortfolios();
 
         //将所有position中所有的剩余价值取出来相加得总价值
@@ -345,10 +374,10 @@ public class PortfolioController {
         Fundmanager worstFM = adminServiceImpl.getFundmanager(worstPortfolio);
 
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("bestPortfolio",bestPortfolio);
-        map.put("worstPortfolio",worstPortfolio);
-        map.put("bestFM",bestFM);
-        map.put("worstFM",worstFM);
+        map.put("bestPortfolioName",bestPortfolio.getName());
+        map.put("worstPortfolioName",worstPortfolio.getName());
+        map.put("itsBestFundManagerName",bestFM.getName());
+        map.put("itsWorstFundManagerName",worstFM.getName());
 
         return map;
     }

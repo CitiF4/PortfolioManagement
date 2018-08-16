@@ -8,6 +8,7 @@ import Model.Portfolio;
 import org.apache.ibatis.annotations.Param;
 
 public interface FundmanagerMapper {
+    int createFundManagerByName(@Param("name") String name);
     int createFundmanager(Fundmanager f);
     int deleteFundmanager(int FmId);
     List<Fundmanager> getFundManagers();

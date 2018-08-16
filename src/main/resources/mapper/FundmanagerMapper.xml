@@ -87,6 +87,11 @@
     insert into fundmanager (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
+  <insert id="createFundManagerByName" >
+    insert into fundmanager (name)
+    values ( #{name,jdbcType=VARCHAR})
+  </insert>
+
   <update id="updateFundmanager" parameterType="Model.Fundmanager">
     update fundmanager
     <set>

@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
         }
         return false;
     }
-
+    public void createFundManagerByName(String name){fundManagerMapper.createFundManagerByName(name);}
     public List<Fxrate> getRateForSpecifiedCCY(String ccy){return fxrateMapper.getRateForSpecifiedCCY(ccy);}
     public void updatePortfolioFmId(Portfolio p){portfolioMapper.updatePortfolio(p);}
 

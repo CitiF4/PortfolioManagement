@@ -20,6 +20,8 @@ public interface AdminService {
     //admin view the distinct list of positions
     List<Information> queryForDistinctPositions();
 
+
+    void createFundManagerByName(String name);
     List<Fxrate> getRateForSpecifiedCCY(String ccy);
     void updatePortfolioFmId(Portfolio p);
 
