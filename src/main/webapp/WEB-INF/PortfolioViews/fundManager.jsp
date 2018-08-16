@@ -48,13 +48,17 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
-                            <a id = "createPortfolio" href="#">
-                                <i class="fas fa-chart-bar"></i>Add Portfolio</a>
+                        <li class="active has-sub">
+                            <a id = "createPortfolio" class="js-arrow" href="fundManager.jsp" >
+                                <i class="fas fa-tachometer-alt"></i>Create</a>
                         </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="fundManager.jsp">
-                                <i class="fas fa-tachometer-alt"></i>Show Protfolios</a>
+                        <li>
+                            <a href="DisplayInformation.jsp">
+                                <i class="fas fa-chart-bar"></i>Information</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-table"></i>Report</a>
                         </li>
                     </ul>
                 </nav>

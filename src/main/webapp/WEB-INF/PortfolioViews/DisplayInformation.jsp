@@ -140,7 +140,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id ="equity" onclick="handleDisplayInformation(this)">
+                                <a id ="equities" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Equity</a>
                             </li>
@@ -175,7 +175,6 @@
                         <th>Symbol</th>
                         <th>Price</th>
                         <th>Currency</th>
-                        <th>Rate</th>
                         <th>Date</th>
                     </tr>
                     </thead>
@@ -243,36 +242,39 @@
 <script>
 
     $(document).ready(function(){
-        showTableData("Bonds");
+        receiveData("equities");
 
     });
     function handleDisplayInformation(e) {
         var productType = e.getAttribute("id");
-        showTableData(productType);
+        console.log(productType);
+        receiveData(productType);
     }
-    function showTableData(type){
-        var jsonStr = "{listData}";
+    function receiveData(type){
+        $.ajax({
+            url: '/getTypeInformation',
+            type:'POST',
+            data:{type:type},
+            success:function(response){
+                console.log(response);
+                displayTable(response);
+
+            }
+         });
+    }
+    function displayTable(data){
         if( $('#showTypeInfo').dataTable()){
             $('#showTypeInfo').dataTable().fnDestroy();
         }
         $('#showTypeInfo').DataTable( {
-            ajax: {
-                url: '/getTypeInformation',
-                type:POST,
-                data:{type:type}
-//                dataSrc: 'staff',
-
-            },
-            data: typeData,
+            data: data,
             columns: [
                 { data: 'symbol' },
                 { data: 'price' },
-                { data: 'currency' },
-                { data: 'rate' },
+                { data: 'ccy' },
                 { data: 'date' }
             ]
         } );
-
     }
 
 </script>

@@ -48,7 +48,7 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
-                            <a id = "createPortfolio" class="js-arrow" href="#" >
+                            <a id = "createPortfolio" class="js-arrow" href="" >
                                 <i class="fas fa-tachometer-alt"></i>Create</a>
                         </li>
                         <li>

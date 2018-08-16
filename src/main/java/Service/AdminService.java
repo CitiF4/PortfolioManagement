@@ -36,7 +36,6 @@ public interface AdminService {
     void updateRate(Fxrate f);
     void updatePrice(Information info);//Position don't need change price
     void getInformationByType(String type);
-    void getInformationByTypeAndDate(String type, Date dateFrom, Date dateTo);
     void deleteFm(int fmId);
     List<Fundmanager> getFundManagers();
     Fundmanager getFundManager(int id);

@@ -103,7 +103,7 @@ public class FundManagerServiceImpl implements FundManagerService {
     }
 
     public List<Information> getInformation(String type, Date date) {
-        return informationMapper.getInformationPeriod(type,date,date);
+        return informationMapper.getInformationPeriod(type,date);
     }
 
     public void getPortShowInfo(List<Portfolio> portfolios) {

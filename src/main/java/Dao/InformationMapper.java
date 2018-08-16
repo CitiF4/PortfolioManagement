@@ -15,7 +15,7 @@ public interface InformationMapper {
     int deleteInformation(int infoId);
     int updateInformation(Information info);
     int createInformation(Information info);
-    List<Information> getInformationPeriod(String type,Date dateFrom,Date dateTo);
+    List<Information> getInformationPeriod(@Param("type")String type, @Param("date")Date date);
 
     int createInformationForPrice(@Param("symbol")String symbol,@Param("type") String type,@Param("price") double price,@Param("ccy") String ccy,@Param("date") Date date);
 

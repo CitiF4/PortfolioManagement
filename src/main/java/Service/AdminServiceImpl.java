@@ -82,10 +82,6 @@ public class AdminServiceImpl implements AdminService {
         informationMapper.getInformationOfSameType(type);
     }
 
-    public void getInformationByTypeAndDate(String type, Date dateFrom, Date dateTo) {
-        informationMapper.getInformationPeriod(type,dateFrom,dateTo);
-    }
-
     public void deleteFm(int fmId) {
         fundManagerMapper.deleteFundmanager(fmId);
     }

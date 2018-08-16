@@ -13,7 +13,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <!-- don't handle the static resource -->
-
+    <mvc:default-servlet-handler />
     <!-- if you use annotation you must configure following setting -->
     <mvc:annotation-driven />
 

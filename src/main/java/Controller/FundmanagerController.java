@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -26,11 +28,20 @@ public class FundmanagerController {
 
     @RequestMapping("/getTypeInformation")
     @ResponseBody
-    public List<Information> getProduct (@RequestParam (value = "type") String type){
-        Date date = new Date();
-        java.sql.Date dateS = new java.sql.Date(date.getTime());
-        List<Information> information = fundManagerServiceImpl.getInformation(type, dateS);
+    public List<Information> getProduct (@RequestParam (value = "type") String type) {
+        System.out.println("the type is " + type);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String nowdayTime = dateFormat.format(new Date());
+        List<Information> information = new ArrayList<Information>();
+        try {
+            Date nowDate = dateFormat.parse(nowdayTime);
+            information = fundManagerServiceImpl.getInformation(type, nowDate);
+            System.out.println(information.size());
+        } catch (ParseException e) {
+
+        }
         return information;
+
 
     }
 
