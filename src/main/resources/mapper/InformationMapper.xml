@@ -236,8 +236,7 @@
 
   <select id="getInformationPeriod" resultType="Model.Information">
     SELECT * FROM information where type = #{type}
-    <if test="dateFrom != null and dateFrom != ''"> AND date <![CDATA[>=]]> #{dateFrom}</if>
-    <if test="dateTo != null and dateTo != ''">AND date <![CDATA[<=]]> #{dateTo}</if>
+    AND date = #{date}
   </select>
 
   <update id="updateByExampleSelective" parameterType="map">

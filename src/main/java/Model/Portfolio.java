@@ -111,6 +111,14 @@ public class Portfolio {
         this.initCash = initCash;
     }
 
+    public double getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(double currentValue) {
+        this.currentValue = currentValue;
+    }
+
     public String tooString(){
         return "name :" + name + " cash :" + curCash;
     }

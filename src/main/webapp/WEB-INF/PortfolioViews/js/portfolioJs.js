@@ -5,15 +5,12 @@
 var portfolioData;
 var portfolioId;
 $(document).ready(function() {
-    console.log($('#chartDate'));
     var date = new Date();
     month = date.getMonth() + 1;
     var dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
     $('#chartDate')[0].innerText = dateStr;
-    var url=window.location.search; //获取url中"?"符后的字串
-    if(url.indexOf("?")!=-1){
-       var portfolioId = url.substr(url.indexOf("=")+1);
-    }
+    portfolioId = "${id}";
+
     console.log("get portfolio id: " + portfolioId);
       $.ajax({
           url:"/getPortfolio",

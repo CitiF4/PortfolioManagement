@@ -18,24 +18,4 @@ $('#myModal').on('shown.bs.modal', function (e) {
         'margin-top': modalHeight
     });
 });
-function submitPorfolio(e){
-    if($("#quantity-input")[0].value == ""){
-        $("#quantity-input")[0].focus();
-    }
-    else{
-        //传portfolio数据给后台
-        $.ajax({
-            type:'POST',
-            url:'/createPortfolio',
-            data:{
-                portfolioName:$('#portfolio_name').text(),
-                portfolioCash:$('#portfolio_cash').text()
-            },
-            dataTpe:'json',
-            success:function(){
-                console.log("create success");
-            }
-        });
-    }
 
-}

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,15 +30,18 @@ public class PortfolioController {
     AdminService adminServiceImpl;
 
 
-    @RequestMapping(value = "/createPortfolio")
-    public void createPortfolio(HttpServletRequest request){
-
-        String name = request.getParameter("portfolio_name");
-        double cash = Double.parseDouble(request.getParameter("portfolio_cash"));
-        int fmId= 1;
-//        int fmId = Integer.parseInt((String)request.getSession().getAttribute("id"));
-
+    @RequestMapping(value = "/createPortfolio", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Portfolio> createPortfolio(HttpServletRequest request, HttpSession httpSession){
+        String name = request.getParameter("portfolioName");
+        double cash = Double.parseDouble(request.getParameter("portfolioCash"));
+        System.out.println("name " + name + " cash: " + cash);
+        String fmName = httpSession.getAttribute("name").toString();
+        int fmId = fundmanagerServiceImpl.getFundmanagerIdbyName(fmName);
+        System.out.println(fmId);
         fundmanagerServiceImpl.createPortfolioByName(name,cash,fmId,new Date());
+        List<Portfolio> portfolios = fundmanagerServiceImpl.getPortfolios(fmId);
+        return portfolios;
     }
 
 
@@ -100,7 +101,7 @@ public class PortfolioController {
         return map;
     }
 
-    @RequestMapping(value="createInformationForPrice")
+    @RequestMapping(value="/createInformationForPrice")
     public void createInformationForPrice(HttpServletRequest request){
         String symbol = request.getParameter("symbol");
         String type = request.getParameter("type");
@@ -110,7 +111,7 @@ public class PortfolioController {
         adminServiceImpl.createInformationForPrice(symbol,type,price,ccy,new Date());
     }
 
-    @RequestMapping(value="queryForDistinctFXrate")
+    @RequestMapping(value="/queryForDistinctFXrate")
     @ResponseBody
     public Map<String,Object> queryForDistinctFXrate(HttpServletRequest request){
         List<Fxrate> list = adminServiceImpl.queryForDistinctFXrate();
@@ -173,7 +174,7 @@ public class PortfolioController {
 
 
 
-    @RequestMapping(value = "queryForPortfolioPosition")
+    @RequestMapping(value = "/queryForPortfolioPosition")
     @ResponseBody
     public Map<String,Object> queryForPortfolioPosition(HttpServletRequest request){
         int portfolioID = Integer.parseInt(request.getParameter("portfolioID"));

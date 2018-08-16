@@ -48,13 +48,17 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+                        <li class="active has-sub">
+                            <a id = "createPortfolio" class="js-arrow" href="fundManager.jsp" >
+                                <i class="fas fa-tachometer-alt"></i>Create</a>
+                        </li>
+                        <li>
+                            <a href="DisplayInformation.jsp">
+                                <i class="fas fa-chart-bar"></i>Information</a>
+                        </li>
                         <li>
                             <a href="#">
-                                <i class="fas fa-chart-bar"></i>Create</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="fundManager.jsp">
-                                <i class="fas fa-tachometer-alt"></i>Portfolios</a>
+                                <i class="fas fa-table"></i>Report</a>
                         </li>
                     </ul>
                 </nav>
@@ -95,6 +99,7 @@
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
+                <%--<iframe src = ""></iframe>--%>
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
@@ -163,6 +168,33 @@
         </div>
         <!-- END PAGE CONTAINER-->
 
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">New Portfolio</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="portfolio_name">Portfolio Name</label>
+                            <input type="text" name="portfolio_name" class="form-control" id="portfolio_name" placeholder="name">
+                            <small class="form-text text-muted">This is required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="portfolio_cash">Cash</label>
+                            <input type="text" name="portfolio_cash" class="form-control" id="portfolio_cash" placeholder="cash">
+                            <small class="form-text text-muted">This is required</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Close</button>
+                        <button type="button" id="btn_submit" onclick="submitPorfolio(this)" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Jquery JS-->
@@ -190,29 +222,36 @@
     <script src="js/main.js"></script>
 
     <script>
-        $(doucument).ready(function () {
+        $(document).ready(function () {
             $.ajax({
                 url: "/getPortfolios",
                 dataType: "json",
-//           data:{type:type},
                 success: function (response) {
-                    // console.log(response);
+                    console.log(response);
                     for (var i = 0; i < response.length; i++) {
-                        displayProtfolios(response[i]);
+                        displayPortfolios(response[i]);
                     }
+                },
+                error:function(){
+                    console.log("fail");
                 }
             });
         });
 
-        function displayProtfolios(portfolio) {
-            var card = '<div class="col-md-4"> <div class="card"> <div class="card-header"> <strong class="card-title mb-3">Portfolio</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
-            card += '<h5 id="id" style="display: none">'+ portfolio.id + '</h5>' + '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ portfolio.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ portfolio.initialCash + '<label class="text-sm-center mt-2 mb-1">Cash :</label>'+ '<span id="cash">'+ portfolio.cash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Value :</label> <span id="value">'+ portfolio.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">ProfitRate :</label> <span id="rate">'+ portfolio.rate
-                + '</span> </div> <hr> <div class="table-data-feature"> <button type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editPortfolio($(this))"> <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deletePortfolio($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
+        function displayPortfolios(portfolio) {
+            var card = '<div class="col-md-4"> <div class="card" > <div class="card-header"> <strong class="card-title mb-3">Portfolio</strong> </div> <div class="card-body"> <div class="mx-auto mr-auto text-center d-block">';
+            card += '<h4 id="name" class="text-sm-center mt-2 mb-1">'+ portfolio.name +'</h4><label class="text-sm-center mt-2 mb-1">Initial Cash :</label><span id="initialCash">'+ portfolio.initCash + '<br><label class="text-sm-center mt-2 mb-1">Cash :</label>'+ '<span id="cash">'+ portfolio.curCash + '</span>'+ '<br> <label class="text-sm-center mt-2 mb-1">Value :</label> <span id="value">'+ portfolio.value+ '</span> <br> <label class="text-sm-center mt-2 mb-1">ProfitRate :</label> <span id="rate">'+ portfolio.rate
+                + '</span> </div> <hr> <div class="table-data-feature">' +
+                '<form action=""  method="post" >'+
+                '<input type="text  name="id" >'+
+                 '<input type="submit">'
+
+                '<h5 id="id" style="display: none">'+ portfolio.id + '</h5><button onclick="displayPortfolio(this)" type="button" id="edit" class="item" data-toggle="tooltip" data-placement="top" title="Edit" > <i class="zmdi zmdi-edit"></i> </button> <button  type="button" id="delete" class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="deletePortfolio($(this))"> <i class="zmdi zmdi-delete"></i> </button> </div> </div> </div> </div>';
             $(".row").append(card);
         }
 
         function deletePortfolio(e) {
-            var id = e.parent().prev().prev().find('h5').innerHTML;
+            var id = e.previousSibling.innerText;
             $.ajax({
                 url:"/fundManager/deletePortfolio" + id,
                 contentType:"application/json",
@@ -221,29 +260,63 @@
                 // data:null,
                 // async:true,
                 success:function(response){
+                    console.log(response);
                     for(var i = 0; i < response.length; i++){
-                        displayProtfolios(response[i]);
+                        displayPortfolios(response[i]);
                     }
 
                 }
             });
         }
+        function displayPortfolio(e){
+             var id = e.previousSibling.innerText;
+             $.ajax({
+                 url:"/toDetailPage",
+                 type:"POST",
+                 data:{"id":id},
 
-        function editPortfolio($) {
-            // $.ajax({
-            //     url:"/fundManager/editPortfolio",
-            //     dataType:"json",
-            //     type:"get",
-            //     data:{
-            //         portfolioID:$("#id").text()
-            //     },
-            //     async:true,
-            //     success:function(){
-            //         $("#name").text(data.parseJSON.name);
-            //     }
-            // });
+                 success:function(){
+                     window.location.href = "portfolios.jsp";
+
+                 }
+
+             });
+        }
+        function submitPorfolio(e){
+            if($("#portfolio_name")[0].value == "" ){
+                $("#portfolio_name")[0].focus();
+            }
+            else if($("#portfolio_cash")[0].value == "" ){
+                $("#portfolio_cash")[0].focus();
+            }
+            else{
+                //传portfolio数据给后台
+                $.ajax({
+                    type:'POST',
+                    url:'/createPortfolio',
+                    data:{
+                        portfolioName: $('#portfolio_name')[0].value,
+                        portfolioCash:$('#portfolio_cash')[0].value
+                    },
+                    dataType:'json',
+                    success:function(response){
+                        console.log(response);
+                                for(var i =0;i< response.length; i++){
+                                    displayPortfolios(response[i]);
+
+                                }
+                    },
+                    error:function(){
+                        console.log("fail");
+                    }
+                });
+            }
+
         }
     </script>
+    <script src="js/commonJs.js"></script>
+
+
 
 </body>
 
