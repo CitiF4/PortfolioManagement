@@ -129,6 +129,13 @@ public class PortfolioController {
         int pID = Integer.parseInt(request.getParameter("portfolioID"));
 
         /*String ccy = "";
+       */
+
+        double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
+        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
+        double price = infos.get(0).getPrice();
+        String ccy = infos.get(0).getCcy();
+
         List<Information> infoList = adminServiceImpl.getRecentPrice(symbol,type);
         if(infoList.size()>0){
             ccy = infoList.get(0).getCcy();
@@ -139,20 +146,16 @@ public class PortfolioController {
         double rate = 1.0;
         if (fxrateList.size()>0){
             rate = fxrateList.get(0).getRate();
-        }*/
+        }
 
-        double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
-        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
-        double price = infos.get(0).getPrice();
-        String ccy = infos.get(0).getCcy();
-
-        double neededCash = price*qty;
+        double neededCash = price*qty*rate;
 
         if (cash<neededCash){
             return "no";
         }else {
             Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
             pf.setCurCash(cash-neededCash);
+            fundmanagerServiceImpl.updatePortfolio(pf);
             Position ps = new Position();
             ps.setQty(qty);
             ps.setSymbol(symbol);
@@ -162,9 +165,10 @@ public class PortfolioController {
             ps.setPortfolioid(pID);
             java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
             ps.setDate(currentDate);
-            ps.setValue(qty*price);
+            ps.setValue(qty*price*rate);
             ps.setProfit(0);
             fundmanagerServiceImpl.createPositionWithoutID(ps);
+
 
             Map<String,Object> map = queryForPortfolioPosition_InnerMethod(pID);
             return map;
@@ -242,7 +246,7 @@ public class PortfolioController {
 
     //卖出position
     @RequestMapping(value = "sellProduct")
-    public String sellProduct(HttpServletRequest request){
+    public Object sellProduct(HttpServletRequest request){
         int pID = Integer.parseInt(request.getParameter("portfolioID"));
         String symbol = request.getParameter("symbol");
         int sellQty = Integer.parseInt(request.getParameter("qty"));
@@ -277,24 +281,25 @@ public class PortfolioController {
                 for (Position ps : pslist) {
                     if(sellQty>ps.getQty()){
                         sellQty = sellQty-ps.getQty();
-                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()*rate+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         fundmanagerServiceImpl.deletePosition(ps.getId());
                     }else if(sellQty==ps.getQty()){
                         sellQty = sellQty-ps.getQty();
-                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()*rate+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         fundmanagerServiceImpl.deletePosition(ps.getId());
+                        sellQty = 0;
                         break;
                     }else {
                         int restQty = ps.getQty()-sellQty;
                         ps.setQty(restQty);
-                        ps.setValue(restQty*ps.getPrice());
-                        ps.setProfit(restQty*(infos.get(0).getPrice()-ps.getPrice()));
+                        ps.setValue(restQty*ps.getPrice()*rate);
+                        ps.setProfit(restQty*(infos.get(0).getPrice()-ps.getPrice())*rate);
 
                         fundmanagerServiceImpl.updatePosition(ps);
 
-                        pf.setCurCash(sellQty*infos.get(0).getPrice()+pf.getCurCash());
+                        pf.setCurCash(sellQty*infos.get(0).getPrice()*rate+pf.getCurCash());
                         fundmanagerServiceImpl.updatePortfolio(pf);
                         sellQty=0;
                         break;
@@ -302,8 +307,9 @@ public class PortfolioController {
 
                 }
             }
-            return "yes";
-
+            Map<String,Object> map = new HashMap<String, Object>();
+            map = queryForPortfolioPosition_InnerMethod(pID);
+            return map;
         }
 
     }
