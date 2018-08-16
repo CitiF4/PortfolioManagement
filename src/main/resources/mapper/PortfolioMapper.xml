@@ -101,9 +101,9 @@
     UPDATE portfolio
     <set>
       <if test="name != null">name = #{name}</if>,
-      <if test="cash != null">cash = #{curCash}</if>,
+      <if test="curCash != null">cash = #{curCash}</if>,
       <if test ="date != null">date = #{date}</if>,
-      <if test="fmid != null">fmid = #{fmid}</if>,
+      <if test="fmid != null">FMid = #{fmid}</if>,
       <if test="initCash != null">initCash = #{initCash}</if>
     </set>
     where id = #{id}
@@ -158,7 +158,7 @@
     insert into portfolio (id, name, date, 
       cash, FMid)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
-      #{cash,jdbcType=DECIMAL}, #{fmid,jdbcType=INTEGER})
+      #{curCash,jdbcType=DECIMAL}, #{fmid,jdbcType=INTEGER})
   </insert>
 
   <insert id="createPortfolioByName">
@@ -168,7 +168,7 @@
     -->
     insert into portfolio (name,date,cash,FMid
     , initCash)
-    values (#{name,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP},#{cash,jdbcType=DOUBLE},
+    values (#{name,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP},#{curCash,jdbcType=DOUBLE},
     #{fmId,jdbcType=INTEGER}, #{initCash,jdbcType=DOUBLE})
   </insert>
 

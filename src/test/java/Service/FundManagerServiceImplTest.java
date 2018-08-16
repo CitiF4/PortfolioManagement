@@ -60,4 +60,11 @@ public class FundManagerServiceImplTest {
         }
     }
 
+    @Test
+    public void updatePortfolio(){
+        Portfolio p = fundManagerServiceImpl.getPortfolio(1);
+        p.setCurCash(450000);
+        fundManagerServiceImpl.updatePortfolio(p);
+    }
+
 }

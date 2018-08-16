@@ -173,7 +173,7 @@
                                     <div  id = "bestPortfolio" class="mx-auto mr-auto text-center d-block">
                                         <h4  class="text-sm-center mt-2 mb-1">PortfolioName</h4>
                                         <label class="text-sm-center mt-2 mb-1">initCash :</label>
-                                        <span id="cash">200</span>
+                                        <span id="cash"></span>
                                         <br>
                                         <label class="text-sm-center mt-2 mb-1">curCash :</label>
                                         <span id="curCash"></span>
@@ -199,10 +199,10 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title mb-3">Worsest Portfolio</strong>
+                                    <strong class="card-title mb-3">Worst Portfolio</strong>
                                 </div>
                                 <div class="card-body">
-                                    <div  id = "worsestPortfolio"  class="mx-auto mr-auto text-center d-block">
+                                    <div  id = "worstPortfolio"  class="mx-auto mr-auto text-center d-block">
                                         <h4  class="text-sm-center mt-2 mb-1">PortfolioName</h4>
                                         <label class="text-sm-center mt-2 mb-1">initCash :</label>
                                         <span >200</span>
@@ -302,7 +302,7 @@
                 var labelData = [];
                 var data = [];
                 for(var i = 0; i < response.length-1 ;i++){
-                    labelData.push(response[i].portfolioName);
+                    labelData.push(response[i].name);
                     data.push(response[i].rate);
                 }
                 var topTenData = response.slice(0,response.length-1);
@@ -310,7 +310,7 @@
                 showTopTable(topTenData);
                 var bestAndWorsest = {
                     best:topTenData[0],
-                    worsest:response[response.length -1]};
+                    worst:response[response.length -1]};
                 showBestAndWorsest(bestAndWorsest);
             },
             error:function(){

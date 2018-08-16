@@ -134,23 +134,23 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a id ="bonds" onclick="handleDisplayInformation(this)">
+                                <a id ="bonds" href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-tachometer-alt"></i>Bonds
                                     <span class="bot-line"></span>
                                 </a>
                             </li>
                             <li>
-                                <a id ="equities" onclick="handleDisplayInformation(this)">
+                                <a id ="equities"  href = "#"  onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Equity</a>
                             </li>
                             <li>
-                                <a id="futures" onclick="handleDisplayInformation(this)">
+                                <a id="futures"  href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-trophy"></i>
                                     <span class="bot-line"></span>Futures</a>
                             </li>
                             <li >
-                                <a id="etfs" onclick="handleDisplayInformation(this)">
+                                <a id="etfs"  href = "#" onclick="handleDisplayInformation(this)">
                                     <i class="fas fa-copy"></i>
                                     <span class="bot-line"></span>ETFS</a>
                             </li>

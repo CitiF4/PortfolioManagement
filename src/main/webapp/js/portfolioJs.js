@@ -1,9 +1,6 @@
 /**
  * Created by Dong on 2018/8/15.
  */
-
-var portfolioData;
-var portfolioId;
 function showPositions(response){
     var tableData = response.positions;
     $('#portfolioName')[0].innerText = response.portfolioName;
@@ -85,80 +82,4 @@ function showChart(labelData,data){
     });
 
 }
-$("#buyPosition").click(function(){
-    if($("#quantity-input")[0].value == ""){
-        $("#quantity-input")[0].focus();
-    }
-    var qty = $("#quantity-input")[0].value;
-    var type = $('#selectType').find("option:selected").attr("value");
-    var symbol = $('#selectSymbol').find("option:selected").attr("value");
-    $.ajax({
-        url:"/canBuy",
-        type:"POST",
-        dataType:"json",
-        data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
-        success:function(response){
-            if(response == "no"){
-                alert("can't buy the product")
-            }
-            else{
-                showPositions(response)
-            }
-        }
-    })
-    // function buyPostion(){
-    //     var qty = $("#quantity-input")[0].value;
-    //     var type = $('#selectType').find("option:selected").attr("value");
-    //     var symbol = $('#selectSymbol').find("option:selected").attr("value");
-    //
-    //     // var position = {
-    //     //     "symbol": symbol,
-    //     //     "type": type,
-    //     //     "qty": qty,
-    //     //     "price": 2020,
-    //     //     "value": 50000,
-    //     //     "curValue": 52365,
-    //     //     "offset": 0,
-    //     //     "date": "2018-08-17"
-    //     //
-    //     // }
-    //     // portfolioData.positions.push(position);
-    //     // $("#showPositions").append(
-    //     //     "<tr>" +
-    //     //     "<td>" + position.symbol + "</td>" +
-    //     //     "<td>" + position.type + "</td>" +
-    //     //     "<td>" + position.qty + "</td>" +
-    //     //     "<td>" + position.price + "</td>" +
-    //     //     "<td>" + position.value + "</td>" +
-    //     //     "<td>" + position.curValue + "</td>" +
-    //     //     "<td>" + position.offset + "</td>" +
-    //     //     "<td>" + position.date + "</td>" +
-    //     //     "</tr>")
-    // }
-
-
-})
-$("#sellPosition").click(function(){
-    var qty = $("#quantity-input").innerText;
-    var type = $('#selectType').find("option:selected").attr("value");
-    var symbol = $('#selectSymbol').find("option:selected").attr("value");
-    if($("#quantity-input")[0].value == ""){
-        $("#quantity-input")[0].focus();
-    }
-    $.ajax({
-        url:"/canSell",
-        type:"POST",
-        dataType:"json",
-        data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
-        success:function(response){
-            if(response == "no"){
-                alert("can't sell the product")
-            }
-            else{
-                showPositions(response)
-            }
-        }
-    })
-
-})
 

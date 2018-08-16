@@ -345,6 +345,7 @@
 <script src="/js/portfolioJs.js"></script>
 <script src="/js/commonJs.js"></script>
 <script>
+    var portfolioId = '${id}';
     $(document).ready(function() {
         console.log("i am in detail page");
         var date = new Date();
@@ -352,8 +353,6 @@
         var dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
         $('#chartDate')[0].innerText = dateStr;
         var url = '${url}';
-        console.log(url);
-        console.log('${id}');
         $.ajax({
             url:url,
             dataType:"json",
@@ -372,59 +371,58 @@
                 showChart(labelData,data);
             }
         })
-
-        // portfolioData = {
-        //     "portfolioName": "port1",
-        //     "initCash":20,
-        //     "curCash":30,
-        //     "curValue":50,
-        //     "offset":20,
-        //     "percentage":0.2,
-        //     "positions":[
-        //         {
-        //             "symbol":"Apple",
-        //             "type":"Bonds",
-        //             "qty":20,
-        //             "price":2020,
-        //             "value":50000,
-        //             "curValue":52365,
-        //             "offset":50,
-        //             "date":"2018-08-17"
-        //         },
-        //         {
-        //             "symbol":"Goole",
-        //             "type":"Bonds",
-        //             "qty":22,
-        //             "price":2020,
-        //             "value":50000,
-        //             "curValue":52365,
-        //             "offset":50,
-        //             "date":"2018-08-17"
-        //         },
-        //         {
-        //             "symbol":"Alibaba",
-        //             "type":"Bonds",
-        //             "qty":23,
-        //             "price":2020,
-        //             "value":50000,
-        //             "curValue":52365,
-        //             "offset":50,
-        //             "date":"2018-08-17"
-        //         },
-        //         {
-        //             "symbol":"Baidu",
-        //             "type":"Bonds",
-        //             "qty":20,
-        //             "price":2020,
-        //             "value":50000,
-        //             "curValue":52365,
-        //             "offset":50,
-        //             "date":"2018-08-17"
-        //         }
-        //     ]
-        // };
-        // showPositions(portfolioData);
     });
+    $("#buyPosition").click(function(){
+        if($("#quantity-input")[0].value == ""){
+            $("#quantity-input")[0].focus();
+        }
+        var qty = $("#quantity-input")[0].value;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        $.ajax({
+            url:"/buyProduct",
+            type:"POST",
+            dataType:"json",
+            data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
+            success:function(response){
+                console.log(response);
+                if(Object.keys(response).length == 0){
+                    alert("can't buy the product")
+                }
+                else{
+                    showPositions(response)
+                }
+            },
+            error:function(){
+                console.log("fail");
+            }
+        })
+
+
+    })
+    $("#sellPosition").click(function(){
+        var qty = $("#quantity-input").innerText;
+        var type = $('#selectType').find("option:selected").attr("value");
+        var symbol = $('#selectSymbol').find("option:selected").attr("value");
+        if($("#quantity-input")[0].value == ""){
+            $("#quantity-input")[0].focus();
+        }
+        $.ajax({
+            url:"/sellProduct",
+            type:"POST",
+            dataType:"json",
+            data:{qty:qty,type:type,symbol:symbol,portfolioId:portfolioId},
+            success:function(response){
+                if(response == "no"){
+                    alert("can't sell the product")
+                }
+                else{
+                    showPositions(response)
+                }
+            }
+        })
+
+    })
 </script>
 
 </body>

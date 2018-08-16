@@ -122,7 +122,7 @@ function createChart(labelData,data){
 
 }
 function showTopTable(topTenData){
-    for(var i = 0; i < topTenData.length; i++){
+    for(var i = 0; i < topTenData.length/2; i++){
         var portfolio = topTenData[i];
         $("#topPortfolios").append(
             "<tr>" +
@@ -132,20 +132,19 @@ function showTopTable(topTenData){
     }
     }
 function showBestAndWorsest(bestAndWorsest){
-    $("#bestPortfolio").children("h4")[0].innerText = bestAndWorsest.best.portfolioName;
+    console.log("best" + bestAndWorsest.best.curCash);
+    console.log("worst" + bestAndWorsest.worst.initCash);
+
+    $("#bestPortfolio").children("h4")[0].innerText = bestAndWorsest.best.name;
     $("#bestPortfolio").children("span")[0].innerText = bestAndWorsest.best.initCash;
     $("#bestPortfolio").children("span")[1].innerText = bestAndWorsest.best.curCash;
     $("#bestPortfolio").children("span")[2].innerText = bestAndWorsest.best.value;
     $("#bestPortfolio").children("span")[3].innerText = bestAndWorsest.best.rate;
-    $("#worsestPortfolio").children("h4")[0].innerText = bestAndWorsest.worsest.portfolioName;
-    $("#worsestPortfolio").children("span")[0].innerText = bestAndWorsest.worsest.initCash;
-    $("#worsestPortfolio").children("span")[1].innerText = bestAndWorsest.worsest.curCash;
-    $("#worsestPortfolio").children("span")[2].innerText = bestAndWorsest.worsest.value;
-    $("#worsestPortfolio").children("span")[3].innerText = bestAndWorsest.worsest.rate;
-
-
-
-
+    $("#worstPortfolio").children("h4")[0].innerText = bestAndWorsest.worst.name;
+    $("#worstPortfolio").children("span")[0].innerText = bestAndWorsest.worst.initCash;
+    $("#worstPortfolio").children("span")[1].innerText = bestAndWorsest.worst.curCash;
+    $("#worstPortfolio").children("span")[2].innerText = bestAndWorsest.worst.value;
+    $("#worstPortfolio").children("span")[3].innerText = bestAndWorsest.worst.rate;
 }
 
 

@@ -23,12 +23,12 @@ public class Portfolio {
 
     private double currentValue;
 
-    public Portfolio(Integer id, String name, Date date, Double cash, Integer fmid, Double initCash) {
+    public Portfolio(Integer id, String name, Date date, Double curCash, Integer fmid, Double initCash) {
 
         this.id = id;
         this.name = name==null?"":name;
         this.date = date;
-        this.curCash = cash==null?0:cash;
+        this.curCash = curCash==null?0:curCash;
         this.fmid = fmid;
         this.initCash = initCash==null?0:initCash;
     }
@@ -119,7 +119,7 @@ public class Portfolio {
         this.currentValue = currentValue;
     }
 
-    public String tooString(){
+    public String toString(){
         return "name :" + name + " cash :" + curCash;
     }
 
