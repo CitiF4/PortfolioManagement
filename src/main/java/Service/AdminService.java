@@ -18,7 +18,8 @@ import java.util.List;
 public interface AdminService {
 
     //admin view the distinct list of positions
-    List<Position> queryForDistinctPositions();
+    List<Information> queryForDistinctPositions();
+
 
 
     boolean validateAdmin(String name);

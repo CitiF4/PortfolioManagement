@@ -48,6 +48,8 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
+
+
     public List<Fxrate> queryForDistinctFXrate(){
         return fxrateMapper.queryForDistinctFXrate();
     }
@@ -60,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
     public void uploadFXrate(String base,String term,double rate,Date date){fxrateMapper.uploadFXrate(base,term,rate,date);};
 
 
-    public List<Position> queryForDistinctPositions(){
+    public List<Information> queryForDistinctPositions(){
         return  positionMapper.queryForDistinctPositions();
     }
 

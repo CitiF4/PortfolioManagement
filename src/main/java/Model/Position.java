@@ -33,6 +33,8 @@ public class Position {
     }
 
     private double profit;
+
+    public Position(){};
     public Position(Integer id, Integer qty, String symbol, double price, String ccy, String type, Integer portfolioid, Date date, double value, double profit) {
         this.id = id;
         this.qty = qty;

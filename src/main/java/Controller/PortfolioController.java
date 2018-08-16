@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.Port;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -82,13 +83,24 @@ public class PortfolioController {
         return map;
     }
 
+    @RequestMapping(value="queryForDistinctPositionsAndFXrate")
+    public Map<String,Object>queryForDistinctPositionsAndFXrate(HttpServletRequest request){
+
+        List<Information> psList = adminServiceImpl.queryForDistinctPositions();
+        List<Fxrate> fxList = adminServiceImpl.queryForDistinctFXrate();
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("Position",psList);
+        map.put("FXrate",fxList);
+        return map;
+    }
+
     @RequestMapping(value="/queryForDistinctPositions")
     @ResponseBody
     public Map<String,Object>queryForDistinctPositions(HttpServletRequest request){
 
-        List<Position> list = adminServiceImpl.queryForDistinctPositions();
+        List<Information> list = adminServiceImpl.queryForDistinctPositions();
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("list",list);
+        map.put("Position",list);
         return map;
     }
 
@@ -107,7 +119,7 @@ public class PortfolioController {
     public Map<String,Object> queryForDistinctFXrate(HttpServletRequest request){
         List<Fxrate> list = adminServiceImpl.queryForDistinctFXrate();
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("list",list);
+        map.put("FXrate",list);
         return map;
     }
 
@@ -147,5 +159,116 @@ public class PortfolioController {
         return  map;
     }
 
+    @RequestMapping(value = "sellProduct")
+    public String sellProduct(HttpServletRequest request){
+        int pID = Integer.parseInt(request.getParameter("portfolioID"));
+        String symbol = request.getParameter("symbol");
+        int sellQty = Integer.parseInt(request.getParameter("qty"));
+        String type = request.getParameter("type");
 
+        Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
+        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
+        List<Position> pslist= fundmanagerServiceImpl.getSamePositionsFromPortfolio(symbol,type,pID);
+        int numberOfShares=0;
+        for (Position ps:pslist
+             ) {
+            numberOfShares+=ps.getQty();
+        }
+        if(sellQty>numberOfShares){
+            return "no";
+        }else {
+            while (sellQty>0){
+                for (Position ps : pslist) {
+                    if(sellQty>ps.getQty()){
+                        sellQty = sellQty-ps.getQty();
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
+                        fundmanagerServiceImpl.updatePortfolio(pf);
+                        fundmanagerServiceImpl.deletePosition(ps.getId());
+                    }else if(sellQty==ps.getQty()){
+                        sellQty = sellQty-ps.getQty();
+                        pf.setCurCash(ps.getQty()*infos.get(0).getPrice()+pf.getCurCash());
+                        fundmanagerServiceImpl.updatePortfolio(pf);
+                        fundmanagerServiceImpl.deletePosition(ps.getId());
+                        break;
+                    }else {
+                        int restQty = ps.getQty()-sellQty;
+                        ps.setQty(restQty);
+                        ps.setValue(restQty*ps.getPrice());
+                        ps.setProfit(restQty*(infos.get(0).getPrice()-ps.getPrice()));
+
+                        fundmanagerServiceImpl.updatePosition(ps);
+
+                        pf.setCurCash(sellQty*infos.get(0).getPrice()+pf.getCurCash());
+                        fundmanagerServiceImpl.updatePortfolio(pf);
+                        sellQty=0;
+                        break;
+                    }
+
+                }
+            }
+            return "yes";
+
+        }
+
+    }
+
+
+
+
+    public Map<String,Object> fireFundManager(HttpServletRequest request){
+
+        int fmId = Integer.parseInt(request.getParameter("id"));
+        List<Portfolio> pfList = fundmanagerServiceImpl.getPortFolioByFundManagerID(fmId);
+        adminServiceImpl.deleteFm(fmId);
+
+        return null;
+    }
+
+    @RequestMapping(value = "buyProduct")
+    public String buyProduct(HttpServletRequest request){
+        String symbol = request.getParameter("symbol");
+        int qty = Integer.parseInt(request.getParameter("qty"));
+        String type = request.getParameter("type");
+        int pID = Integer.parseInt(request.getParameter("portfolioID"));
+
+        double cash = fundmanagerServiceImpl.getPortfolio(pID).getCurCash();
+        List<Information> infos = adminServiceImpl.getRecentPrice(symbol,type);
+        double price = infos.get(0).getPrice();
+        String ccy = infos.get(0).getCcy();
+
+        double neededCash = price*qty;
+
+        if (cash<neededCash){
+            return "no";
+        }else {
+            Portfolio pf = fundmanagerServiceImpl.getPortfolio(pID);
+            pf.setCurCash(cash-neededCash);
+            Position ps = new Position();
+            ps.setQty(qty);
+            ps.setSymbol(symbol);
+            ps.setPrice(price);
+            ps.setCcy(ccy);
+            ps.setType(type);
+            ps.setPortfolioid(pID);
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            ps.setDate(currentDate);
+            ps.setValue(qty*price);
+            ps.setProfit(0);
+            fundmanagerServiceImpl.createPositionWithoutID(ps);
+            return "yes";
+        }
+    }
+
+
+
+
+
+    /*private boolean purchaseJudge(double cash,int qty,String symbol,String type){
+        double neededCash = adminServiceImpl.getRecentPrice(symbol,type).get(0).getPrice()*qty;
+        if (cash>=neededCash){
+            return true;
+        }else {
+            return false;
+        }
+    }*/
 }

@@ -8,8 +8,10 @@
     -->
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
+
+    <result column="date" jdbcType="DATE" property="date" />
     <result column="cash" jdbcType="DOUBLE" property="curCash" />
+
     <result column="FMid" jdbcType="INTEGER" property="fmid" />
     <result column="initCash" jdbcType="DOUBLE" property="initCash" />
   </resultMap>
@@ -98,10 +100,11 @@
   <update id="updatePortfolio">
     UPDATE portfolio
     <set>
-      <if test="name != null">name = #{name}</if>
-      <if test="cash != null">cash = #{cash}</if>
-      <if test ="date != null">date = #{date}</if>
-      <if test="fmid != null">fmid = #{fmid}</if>
+      <if test="name != null">name = #{name}</if>,
+      <if test="cash != null">cash = #{cash}</if>,
+      <if test ="date != null">date = #{date}</if>,
+      <if test="fmid != null">fmid = #{fmid}</if>,
+      <if test="initCash != null">initCash = #{initCash}</if>
     </set>
     where id = #{id}
   </update>
@@ -127,6 +130,10 @@
   <select id="getPortfolios" resultType="Model.Portfolio">
     SELECT * FROM portfolio
   </select>
+  <select id="getPortFolioByFundManagerID" resultType="Model.Portfolio">
+    SELECT * FROM portfolio where FMid = #{fmID}
+  </select>
+
   <select id="getPorfolio" resultType="Model.Portfolio">
     SELECT * FROM portfolio where id = #{portfolioId}
   </select>
